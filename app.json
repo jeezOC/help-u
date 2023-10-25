@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "help-u",
+    "slug": "help-u",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/HelpU_Icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/HelpU_Splash2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
