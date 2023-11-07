@@ -4,28 +4,31 @@ import Input from '../FormToolkit/components/Inputs/Input';
 import { Formik } from 'formik';
 import { StyleSheet, Text, View } from 'react-native';
 
-const LoginForm = () => {
-  return (
+const LoginForm = ({ navigation }) => {
+  const handleSubmit = (values) => {
+    navigation.replace('App');
+  }
 
-      <Formik
-        initialValues={{ email: '' }}
-        onSubmit={values => console.log(values)}
-      >
-        {({ handleSubmit, values }) => (
-          <View style={styles.formContainer} >
-            <Input name='email' label='Email' />
-            <Input name='password' label='Password' type='password' />
-            <Button onPress={() => handleSubmit} label='Login' size={'lg'}
+  return (
+    <Formik
+      initialValues={{ email: '' }}
+      onSubmit={values => handleSubmit(values)}
+    >
+      {({ handleSubmit, values }) => (
+        <View style={styles.formContainer} >
+          <Input name='email' label='Email' />
+          <Input name='password' label='Password' type='password' />
+          <Button onPress={() => handleSubmit()} label='Login' size={'lg'}
             style={{
               width: '90%',
               marginTop: 20,
-            }}  />
-            <Text>
-              or create an account
-            </Text>
-          </View>
-        )}
-      </Formik>
+            }} />
+          <Text>
+            or create an account
+          </Text>
+        </View>
+      )}
+    </Formik>
   );
 };
 const styles = StyleSheet.create({

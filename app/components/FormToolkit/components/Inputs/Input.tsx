@@ -64,6 +64,7 @@ const Input = (porps: IInput) => {
         placeholder={placeholder}
         inputMode={'text'}
         secureTextEntry={isPassword}
+        selectionColor={AppColors.orangeSolid}
         {...(multiline && { multiline, numberOfLines: 4 })}
       />
       {isInvalid && hasErrors && <Text>{meta.error}</Text>}
