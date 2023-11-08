@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import Login from '../screens/Login';
+import SignUp from '../screens/SignUp';
 import AppLayout from './AppLayout';
 import { AppColors } from '../styles/AppTheme';
 
@@ -10,6 +11,7 @@ import { AppColors } from '../styles/AppTheme';
 type TNoHeaderLayoutProps = {
   Login: undefined;
   App: undefined;
+  SignUp: undefined;
 };
 
 const Stack = createNativeStackNavigator<TNoHeaderLayoutProps>();
@@ -22,7 +24,7 @@ const NoHeaderLayout = () => {
         <Stack.Screen name="Login" component={Login}
           options={{
             headerShown: false,
-            title: 'HelpU | Login',
+            title: 'HelpU | Inicio de Sesión',
           }}
         />
         <Stack.Screen name="App" component={AppLayout}
@@ -36,6 +38,19 @@ const NoHeaderLayout = () => {
           },
           title: 'Help U',
         }} />
+
+        <Stack.Screen name='SignUp' component={SignUp}
+        options={{
+          headerStyle: {
+            backgroundColor: AppColors.orangeSolid,
+          },
+          headerTintColor: AppColors.white,
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+          title: 'Registrarse',
+        }}/>
+
       </Stack.Navigator>
     </NavigationContainer>
   );

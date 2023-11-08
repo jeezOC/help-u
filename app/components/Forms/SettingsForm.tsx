@@ -2,37 +2,31 @@ import React from 'react';
 import Button from '../Button/Button';
 import Input from '../FormToolkit/components/Inputs/Input';
 import { Formik } from 'formik';
-import { StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
-const LoginForm = ({ navigation }) => {
+const settings = ({ navigation }) => {
   const handleSubmit = (values) => {
-    navigation.replace('App');
+    navigation.replace('settings');
   }
 
   return (
     <Formik
-      initialValues={{ email: '' }}
+      initialValues={{ }}
       onSubmit={values => handleSubmit(values)}
     >
       {({ handleSubmit, values }) => (
         <View style={styles.formContainer} >
-          <Input name='email' label='Email' />
-          <Input name='password' label='Contraseña' type='password' />
-          <Button onPress={() => handleSubmit()} label='Iniciar Sesión' size={'lg'}
+          <Button onPress={() => handleSubmit()} label='Desconectarse' size={'lg'}
             style={{
               width: '90%',
               marginTop: 20,
             }} />
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-          <Text>
-            o crear una cuenta
-          </Text>
-        </TouchableOpacity>
         </View>
       )}
     </Formik>
   );
 };
+
 const styles = StyleSheet.create({
   formContainer: {
     width: '100%',
@@ -42,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default LoginForm;
+export default settings;
