@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.background,
   },
   signUpContainer: {
-    
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

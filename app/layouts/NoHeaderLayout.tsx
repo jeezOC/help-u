@@ -28,28 +28,28 @@ const NoHeaderLayout = () => {
           }}
         />
         <Stack.Screen name="App" component={AppLayout}
-        options={{
-          headerStyle: {
-            backgroundColor: AppColors.orangeSolid,
-          },
-          headerTintColor: AppColors.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          title: 'Help U',
-        }} />
+          options={{
+            headerStyle: {
+              backgroundColor: AppColors.orangeSolid,
+            },
+            headerTintColor: AppColors.white,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            title: 'Help U',
+          }} />
 
         <Stack.Screen name='SignUp' component={SignUp}
-        options={{
-          headerStyle: {
-            backgroundColor: AppColors.orangeSolid,
-          },
-          headerTintColor: AppColors.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          title: 'Registrarse',
-        }}/>
+          options={{
+            headerStyle: {
+              backgroundColor: AppColors.orangeSolid,
+            },
+            headerTintColor: AppColors.white,
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            title: 'Registrarse',
+          }} />
 
       </Stack.Navigator>
     </NavigationContainer>
