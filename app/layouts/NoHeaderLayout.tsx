@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import AppLayout from './AppLayout';
-import { AppColors } from '../styles/AppTheme';
+import { AppColors, AppFonts } from '../styles/AppTheme';
 
 
 type TNoHeaderLayoutProps = {
@@ -28,28 +28,28 @@ const NoHeaderLayout = () => {
           }}
         />
         <Stack.Screen name="App" component={AppLayout}
-        options={{
-          headerStyle: {
-            backgroundColor: AppColors.orangeSolid,
-          },
-          headerTintColor: AppColors.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          title: 'Help U',
-        }} />
+          options={{
+            headerStyle: {
+              backgroundColor: AppColors.orangeSolid,
+            },
+            headerTintColor: AppColors.white,
+            headerTitleStyle: {
+              fontFamily: AppFonts.bold,
+            },
+            title: 'Help U',
+          }} />
 
         <Stack.Screen name='SignUp' component={SignUp}
-        options={{
-          headerStyle: {
-            backgroundColor: AppColors.orangeSolid,
-          },
-          headerTintColor: AppColors.white,
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-          title: 'Registrarse',
-        }}/>
+          options={{
+            headerStyle: {
+              backgroundColor: AppColors.orangeSolid,
+            },
+            headerTintColor: AppColors.white,
+            headerTitleStyle: {
+              fontFamily: AppFonts.bold,
+            },
+            title: 'Registrarse',
+          }} />
 
       </Stack.Navigator>
     </NavigationContainer>

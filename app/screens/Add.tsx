@@ -1,27 +1,18 @@
-// import { Image } from 'expo-image';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import SignUpForm from '../components/Forms/SignUpForm';
+import AddForm from '../components/Forms/AddForm';
 import { AppColors } from '../styles/AppTheme';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { TAppLayoutProps } from '../layouts/AppLayout';
 
+type TAddProps = NativeStackScreenProps<TAppLayoutProps>;
 
-type TSignUpProps = NativeStackScreenProps<TAppLayoutProps>;
-
-const SignUp:React.FC<TSignUpProps> = ({navigation}) => {
+const Add: React.FC<TAddProps> = ({ navigation }) => {
   return (
     <View style={styles.container} >
-        <View style={styles.imageContainer} >
-            <Image
-            source={require('../../assets/HelpU_VerticalLogo.png')}
-            onError={(e) => console.log(e)}
-            style={styles.image}
-            />
-        </View>
-        <View style={styles.signUpContainer}>
-            <SignUpForm navigation={navigation} />
-        </View>
+      <View style={styles.signUpContainer}>
+        <AddForm navigation={navigation} />
+      </View>
     </View>
   );
 };
@@ -53,4 +44,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignUp;
+export default Add;

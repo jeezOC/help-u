@@ -6,7 +6,7 @@ import {
   StyleProp,
   ViewStyle
 } from 'react-native'
-import { AppColors, AppTextSizes } from '../../styles/AppTheme'
+import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme'
 import Icon, { IIconProps } from '../Icon/Icon'
 
 interface IButton extends PressableProps {
@@ -122,7 +122,7 @@ const buildButtonStyle = (
     textStyle: {
       fontSize: buttonSizes[size].fontSize,
       color: buttonVariant[variant].color,
-      fontWeight: 'bold'
+      fontFamily: AppFonts.bold,
     }
   })
 }

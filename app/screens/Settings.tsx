@@ -2,13 +2,11 @@ import React from 'react';
 import { Text, View, Image, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import SettingsForm from '../components/Forms/SettingsForm';
-import { AppColors } from '../styles/AppTheme';
-import Button from '../components/Button/Button';
 import { TAppLayoutProps } from '../layouts/AppLayout';
 
 type TSettingsProps = NativeStackScreenProps<TAppLayoutProps>;
 
-const Settings:React.FC<TSettingsProps> = ({navigation}) => {
+const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
 
   return (
     <View
@@ -16,23 +14,23 @@ const Settings:React.FC<TSettingsProps> = ({navigation}) => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        
+
       }}
     >
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
           <Image
-                  source={require('../../assets/HelpU_Icon.png')}
-                  onError={(e) => console.log(e)}
-                  style={styles.image}
-                  />
+            source={require('../../assets/HelpU_Icon.png')}
+            onError={(e) => console.log(e)}
+            style={styles.image}
+          />
 
-          <Text style={styles.title} > 
-              Información de Usuario
+          <Text style={styles.title} >
+            Información de Usuario
           </Text>
         </View>
       </View>
-      <SettingsForm navigation={navigation}/>
+      <SettingsForm navigation={navigation} />
       {/* <View style={styles.buttonContainer}>
         <Button label='Desconectarse' size='lg'></Button>
       </View> */}
@@ -56,9 +54,9 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   titleContainer: {
-    flexDirection: 'row', 
-    justifyContent: 'center', 
-    alignItems: 'center', 
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 10,
   },
   title: {

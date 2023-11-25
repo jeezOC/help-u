@@ -1,15 +1,19 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
-import { StatusBar, View } from 'react-native';
+import { StatusBar } from 'react-native';
 import Home from '../screens/Home';
+import Search from '../screens/Search';
+import Add from '../screens/Add';
 import Settings from '../screens/Settings';
 import Icon from '../components/Icon/Icon';
+import { AppFonts } from '../styles/AppTheme';
 
 
 export type TAppLayoutProps = {
-  Home: undefined;
-  Settings: undefined;
+  Inicio: undefined;
+  Buscar: undefined;
+  Añadir: undefined;
+  Perfil: undefined;
 };
 const Tab = createBottomTabNavigator<TAppLayoutProps>();
 const AppLayout = () => {
@@ -22,11 +26,13 @@ const AppLayout = () => {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
             console.log(size)
-            if (route.name === 'Home') {
-              iconName = focused
-                ? 'home'
-                : 'home';
-            } else if (route.name === 'Settings') {
+            if (route.name === 'Inicio') {
+              iconName = focused ? 'home' : 'home';
+            } else if (route.name === 'Buscar') {
+              iconName = focused ? 'search' : 'search';
+            } else if (route.name === 'Añadir') {
+              iconName = focused ? 'plus' : 'plus';
+            } else if (route.name === 'Perfil') {
               iconName = focused ? 'user' : 'user';
             }
             return <Icon iconName={iconName} iconSize={size} iconColor={color} />;
@@ -34,18 +40,17 @@ const AppLayout = () => {
           tabBarActiveTintColor: 'tomato',
           tabBarInactiveTintColor: 'gray',
           tabBarStyle: {
-            
             borderTopWidth: 0,
             // elevation: 0,
             height: 70,
           },
           tabBarLabelStyle: {
             fontSize: 16,
-            fontWeight: 'bold',
+            fontFamily: AppFonts.ligth,
           },
           tabBarItemStyle: {
             marginVertical: 10,
-            height:50,
+            height: 50,
             alignItems: 'center',
             justifyContent: 'center',
           },
@@ -53,8 +58,7 @@ const AppLayout = () => {
         sceneContainerStyle={{
           backgroundColor: 'white',
         }}
-        initialRouteName='Home'
-
+        initialRouteName='Inicio'
       >
         {appTabs.map((tab) => {
           return (
@@ -73,12 +77,22 @@ const AppLayout = () => {
 
 const appTabs: { name: keyof TAppLayoutProps, component: React.FC, iconName: string }[] = [
   {
-    name: 'Home',
+    name: 'Inicio',
     component: Home,
     iconName: 'home',
   },
   {
-    name: 'Settings',
+    name: 'Buscar',
+    component: Search,
+    iconName: 'search',
+  },
+  {
+    name: 'Añadir',
+    component: Add,
+    iconName: 'plus',
+  },
+  {
+    name: 'Perfil',
     component: Settings,
     iconName: 'settings',
   },

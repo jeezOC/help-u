@@ -1,35 +1,34 @@
 import React from 'react';
 import Button from '../Button/Button';
-import Input from '../FormToolkit/components/Inputs/Input';
 import { Formik } from 'formik';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Input from '../FormToolkit/components/Inputs/Input';
 
-const signUpForm = ({ navigation }) => {
+const Add = ({ navigation }) => {
   const handleSubmit = (values) => {
-    navigation.replace('signUp');
+    navigation.replace('add');
   }
 
   return (
     <Formik
       initialValues={{
-        email: '',
         name: '',
-        lastName: '',
-        phone: '',
-        username: '',
-        password: ''
+        desc: '',
+        date: '',
+        time: '',
+        location: '',
+        photos: '',
+        org: '',
       }}
       onSubmit={values => handleSubmit(values)}
     >
       {({ handleSubmit, values }) => (
         <View style={styles.formContainer} >
-          <Input name='username' label='Usuario' />
           <Input name='name' label='Nombre' />
-          <Input name='lastName' label='Apellidos' />
-          <Input name='phone' label='Teléfono' />
-          <Input name='email' label='Email' />
-          <Input name='password' label='Password' type='password' />
-          <Button onPress={() => handleSubmit()} label='Registrarse' size={'lg'}
+          <Input name='desc' label='Descripción' />
+          
+          <Input name='org' label='Organización asociada' />
+          <Button onPress={() => handleSubmit()} label='Crear' size={'lg'}
             style={{
               width: '90%',
               marginTop: 20,
@@ -39,6 +38,7 @@ const signUpForm = ({ navigation }) => {
     </Formik>
   );
 };
+
 const styles = StyleSheet.create({
   formContainer: {
     width: '100%',
@@ -48,4 +48,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default signUpForm;
+export default Add;
