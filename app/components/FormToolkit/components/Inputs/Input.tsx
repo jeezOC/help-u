@@ -5,7 +5,7 @@ import {
   KeyboardTypeOptions,
   StyleSheet
 } from 'react-native'
-import { AppColors } from '../../../../styles/AppTheme'
+import { AppColors, AppFonts } from '../../../../styles/AppTheme'
 import { useField } from 'formik'
 import { useState } from 'react'
 
@@ -77,17 +77,19 @@ const inputStyles = StyleSheet.create({
     fontWeight: '500',
     fontSize: 16,
     marginBottom: 1,
-    color: AppColors.notBlack
+    color: AppColors.notBlack,
+    fontFamily: AppFonts.regular,
   },
   inputSingleline: {
     width: '100%',
     height: 40,
-    borderRadius: 3,
+    borderRadius: 12,
     padding: 10,
     fontSize: 16,
     borderColor: AppColors.gray,
-    borderWidth: 1.5,
-    backgroundColor: AppColors.white
+    borderWidth: 2,
+    backgroundColor: AppColors.white,
+    fontFamily: AppFonts.regular,
   },
   inputMultiline: {
     width: '100%',
@@ -97,15 +99,16 @@ const inputStyles = StyleSheet.create({
     fontSize: 16,
     backgroundColor: AppColors.white,
     borderColor: AppColors.gray,
-    borderWidth: 1.5
+    borderWidth: 1.5,
+    fontFamily: AppFonts.regular,
   },
   inputFocused: {
     borderColor: AppColors.greenSolid,
-    borderWidth: 2
+    borderWidth: 2,
   },
   inputError: {
     borderColor: AppColors.redSolid,
-    borderWidth: 2
+    borderWidth: 2,
   }
 })
 

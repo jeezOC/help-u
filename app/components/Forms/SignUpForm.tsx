@@ -11,12 +11,14 @@ const signUpForm = ({ navigation }) => {
 
   return (
     <Formik
-      initialValues={{ email: '', 
-                      name: '', 
-                      lastName: '', 
-                      phone: '', 
-                      username: '', 
-                      password: '' }}
+      initialValues={{
+        email: '',
+        name: '',
+        lastName: '',
+        phone: '',
+        username: '',
+        password: ''
+      }}
       onSubmit={values => handleSubmit(values)}
     >
       {({ handleSubmit, values }) => (
@@ -24,7 +26,7 @@ const signUpForm = ({ navigation }) => {
           <Input name='username' label='Usuario' />
           <Input name='name' label='Nombre' />
           <Input name='lastName' label='Apellidos' />
-          <Input name='phone' label='Numero de telefono' />
+          <Input name='phone' label='Teléfono' />
           <Input name='email' label='Email' />
           <Input name='password' label='Password' type='password' />
           <Button onPress={() => handleSubmit()} label='Registrarse' size={'lg'}

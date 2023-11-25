@@ -1,15 +1,13 @@
-// import { Image } from 'expo-image';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import LoginForm from '../components/Forms/LoginForm';
 import { AppColors } from '../styles/AppTheme';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { TAppLayoutProps } from '../layouts/AppLayout';
-
 
 type TLoginProps = NativeStackScreenProps<TAppLayoutProps>;
 
-const Login:React.FC<TLoginProps> = ({navigation}) => {
+const Login: React.FC<TLoginProps> = ({ navigation }) => {
   return (
     <View style={styles.container} >
       <View style={styles.imageContainer} >
@@ -36,7 +34,6 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.background,
   },
   loginContainer: {
-    
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

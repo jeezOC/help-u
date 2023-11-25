@@ -1,9 +1,9 @@
 import { StyleSheet } from "react-native";
 
 export const AppColors = {
-  background: '#F5F5F5',
+  background: '#FFF',
   white: '#FFF',
-  gray: '#E2E2E2',
+  gray: '#d8dbda',
   notBlack: '#141414',
   orangeSolid: '#F79321',
   orangeGhost: '#FBC990',
@@ -18,6 +18,12 @@ export const AppTextSizes = {
   md: 20,
   lg: 24,
   xl: 28,
+}
+
+export const AppFonts = {
+  ligth: 'Lexend_200ExtraLight',
+  regular: 'Lexend_500Medium',
+  bold: 'Lexend_800ExtraBold',
 }
 
 export const StackStyles = StyleSheet.create({
@@ -50,7 +56,6 @@ export const StackStyles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
 
 export const PageNotFoundStyles = StyleSheet.create({
   container: {

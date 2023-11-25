@@ -6,6 +6,7 @@ import Search from '../screens/Search';
 import Add from '../screens/Add';
 import Settings from '../screens/Settings';
 import Icon from '../components/Icon/Icon';
+import { AppFonts } from '../styles/AppTheme';
 
 
 export type TAppLayoutProps = {
@@ -45,6 +46,7 @@ const AppLayout = () => {
           },
           tabBarLabelStyle: {
             fontSize: 16,
+            fontFamily: AppFonts.ligth,
           },
           tabBarItemStyle: {
             marginVertical: 10,

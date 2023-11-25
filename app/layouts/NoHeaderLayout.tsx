@@ -5,7 +5,7 @@ import { StatusBar } from 'expo-status-bar';
 import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import AppLayout from './AppLayout';
-import { AppColors } from '../styles/AppTheme';
+import { AppColors, AppFonts } from '../styles/AppTheme';
 
 
 type TNoHeaderLayoutProps = {
@@ -34,7 +34,7 @@ const NoHeaderLayout = () => {
             },
             headerTintColor: AppColors.white,
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontFamily: AppFonts.bold,
             },
             title: 'Help U',
           }} />
@@ -46,7 +46,7 @@ const NoHeaderLayout = () => {
             },
             headerTintColor: AppColors.white,
             headerTitleStyle: {
-              fontWeight: 'bold',
+              fontFamily: AppFonts.bold,
             },
             title: 'Registrarse',
           }} />
