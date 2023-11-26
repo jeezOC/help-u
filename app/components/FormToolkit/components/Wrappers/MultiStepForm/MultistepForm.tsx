@@ -9,15 +9,18 @@ export interface IMultiStepForm<TValues> {
   initialValues: TValues
   onSubmit: (values: TValues) => void
   isSubmitting?: boolean
+  externalSstepNumer?: number,
 }
 
 const MultiStepForm = <TValues extends {}>({
   children,
   initialValues,
   onSubmit,
-  isSubmitting
+  isSubmitting,
+  externalSstepNumer
 }: IMultiStepForm<TValues>) => {
-  const [stepNumber, setStepNumber] = useState(0)
+
+  const [stepNumber, setStepNumber] = useState(externalSstepNumer ? externalSstepNumer - 1 : 0)
   const [snapshot, setSnapshot] = useState<Partial<TValues>>(initialValues)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const stepList = React.Children.toArray(children) as any[]
@@ -35,13 +38,20 @@ const MultiStepForm = <TValues extends {}>({
   }
 
   const handleSubmit = async (values: Partial<TValues>) => {
+    let canContinue = true
     if (currentStep.props.onSubmit) {
-      await currentStep.props.onSubmit(values)
+      console.log('onStepSubmit')
+      const success = await currentStep.props.onSubmit(values)
+      canContinue = success;
+      console.log('onStepSubmit end')
     }
-    if (isFinalStep) {
-      onSubmit(values as TValues)
-    } else {
-      nextStep(values)
+    if (canContinue) {
+      if (isFinalStep) {
+        onSubmit(values as TValues)
+      } else {
+        console.log('nextStep')
+        nextStep(values)
+      }
     }
   }
 

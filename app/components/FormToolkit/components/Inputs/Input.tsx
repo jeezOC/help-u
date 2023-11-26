@@ -45,6 +45,10 @@ const Input = (porps: IInput) => {
     setIsFieldFocused(false)
   }
 
+  const setPassword = (value: string) => {
+    helpers.setValue(value)
+  }
+
   return (
     <View style={{ width: '100%', marginBottom: 10 }}>
       <Text style={inputStyles.label}>{label}{required && "*"} </Text>
@@ -52,7 +56,9 @@ const Input = (porps: IInput) => {
         id={name}
         value={field.value || ''}
         onBlur={handleBlur}
-        onChangeText={helpers.setValue}
+        onChangeText={isPassword 
+          ? (e) => setPassword(e) 
+          : helpers.setValue}
         style={{
           ...(multiline
             ? inputStyles.inputMultiline
