@@ -73,7 +73,7 @@ const DateTimePickerModal = ({ visible, onClose }) => {
               onPress={onClose}
               accessibilityRole="button"
               accessibilityLabel="Agendar"
-              style={{width: 95}}
+              style={{alignItems: 'flex-start'}}
             >
               <View
                 style={[

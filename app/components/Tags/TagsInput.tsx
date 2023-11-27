@@ -42,14 +42,14 @@ const TagsInput = () => {
       <Text style={tagStyles.tagText}>Áreas de interés</Text>
       <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 1 }}>
         <TextInput
-          style={tagStyles.input}
+          style={[tagStyles.input, editIndex !== null ? {width: '60%'} : {width: '70%'}]}
           placeholder="Añade una etiqueta"
           value={text}
           onChangeText={setText}
           onSubmitEditing={addTag}
         />
         <TouchableOpacity onPress={addTag}
-          style={tagStyles.addButton}>
+          style={[tagStyles.addButton, editIndex !== null ? {width: '38%'} : {width: '30%'}]}>
           <Text style={tagStyles.buttonText}>
             {editIndex !== null ? 'Actualizar' : 'Añadir'}
           </Text>
@@ -116,7 +116,6 @@ const tagStyles = StyleSheet.create({
     fontFamily: AppFonts.bold,
   },
   input: {
-    width: '100%',
     height: 40,
     padding: 10,
     borderWidth: 2,
@@ -128,10 +127,11 @@ const tagStyles = StyleSheet.create({
   },
   addButton: {
     backgroundColor: AppColors.greenSolid,
-    paddingHorizontal: 15,
+    paddingHorizontal: 5,
     paddingVertical: 10,
     borderRadius: 10,
     marginLeft: 5,
+    alignItems: 'center',
   },
   buttonText: {
     color: AppColors.white,

@@ -73,7 +73,7 @@ const Add = ({ navigation }) => {
         <View style={styles.formContainer} >
 
           <View style={styles.rowContainer}>
-            <Text style={styles.text}>Selecciona la imagen principal del evento</Text>
+            <Text style={[styles.text, {width: '50%'}]}>Selecciona la imagen principal del evento</Text>
             <View style={{ width: '50%', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
               <PickerImage></PickerImage>
             </View>
