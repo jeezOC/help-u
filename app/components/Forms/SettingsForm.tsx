@@ -1,24 +1,32 @@
 import React, { useState } from 'react';
 import Button from '../Button/Button';
 import { Formik } from 'formik';
-import { StyleSheet, View, Text, Modal} from 'react-native';
+import { StyleSheet, View, Text, Modal } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import Icon from '../Icon/Icon';
 import { AppFonts } from '../../styles/AppTheme';
 import SettingsModal from './SettingsModal';
+import { useAuth } from '../../hooks/useAuth';
 
 const settings = ({ navigation }) => {
+  const {handleLogout} = useAuth();
   const handleSubmit = (values) => {
     navigation.replace('settings');
   }
-const [modalVisible, setModalVisible] = useState(false);
-const toggleModal = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+  const toggleModal = () => {
     setModalVisible(!modalVisible);
-};
+  };
+
+  const onLogout = async () => {
+    await handleLogout();
+    navigation.replace('Login');
+  }
+
 
   return (
     <Formik
-      initialValues={{ }}
+      initialValues={{}}
       onSubmit={values => handleSubmit(values)}
     >
       {({ handleSubmit, values }) => (
@@ -29,8 +37,8 @@ const toggleModal = () => {
               <View style={styles.leftContent}>
                 <Icon iconName='image' iconSize={'md'} iconColor='grey' />
                 <View>
-                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft:20}}>Nombre de Prueba</Text>
-                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft:20}}>Correo de Prueba</Text>
+                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>Nombre de Prueba</Text>
+                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>Correo de Prueba</Text>
                 </View>
               </View>
               <Icon iconName='bell' iconColor='grey' iconSize={'md'} />
@@ -39,51 +47,51 @@ const toggleModal = () => {
           <View style={styles.containerBtn}>
             <TouchableOpacity style={styles.button} onPress={toggleModal}>
               <View style={styles.leftContent}>
-                <Icon iconName='user' iconSize={'md'} iconColor='gray'/>
+                <Icon iconName='user' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Ajustes de cuenta</Text>
               </View>
-              <Icon iconName='edit' iconSize={'md'} iconColor='gray'/>
+              <Icon iconName='edit' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
             <SettingsModal visible={modalVisible} onClose={toggleModal} />
           </View>
           <View style={styles.containerBtn}>
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
-                <Icon iconName='language' iconSize={'md'} iconColor='gray'/>
+                <Icon iconName='language' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Idioma</Text>
               </View>
-              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray'/>
+              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
-                <Icon iconName='comment' iconSize={'md'} iconColor='gray'/>
+                <Icon iconName='comment' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Feedback</Text>
               </View>
-              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray'/>
+              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
-                <Icon iconName='star' iconSize={'md'} iconColor='gray'/>
+                <Icon iconName='star' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Calificanos</Text>
               </View>
-              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray'/>
+              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
-                <Icon iconName='download' iconSize={'md'} iconColor='gray'/>
+                <Icon iconName='download' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Actualizar</Text>
               </View>
-              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray'/>
+              <Icon iconName='angle-right' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
           </View>
-          <Button onPress={() => navigation.navigate('Login')}  
-                  label='Cerrar sesión' size={'md'}          
-                  accent="cancel"
-                  style={{
-                    width: '70%',
-                    marginTop: 15,
-                    alignSelf: 'center',
-                  }} 
+          <Button onPress={() =>onLogout()}
+            label='Cerrar sesión' size={'md'}
+            accent="cancel"
+            style={{
+              width: '70%',
+              marginTop: 15,
+              alignSelf: 'center',
+            }}
           />
         </View>
       )}

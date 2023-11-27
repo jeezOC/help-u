@@ -17,18 +17,20 @@ import {
 } from '@firebase/firestore';
 import { FIRESTORE } from '../../FirebaseConfig';
 import informationService from "./informationService";
+import { getIn } from "formik";
 
 const userCollection = collection(FIRESTORE, 'users')
 
 const get = async (id: string): Promise<ApiResponse<TUser>> => {
   try {
-    const userDoc = await getDoc(doc(userCollection, id.toString()));
+    const userDoc = await getDoc(doc(userCollection, id));
+    const { data: informationDoc } = await informationService.get(userDoc.data().information.id);
     if (userDoc.exists()) {
-      const user = { id: userDoc.id, ...userDoc.data() } as TUser;
+      const user = { id: userDoc.id, ...userDoc.data(), information: informationDoc };
       return {
         success: true,
         message: 'User found',
-        data: user,
+        data: user as TUser,
       }
     } else {
       throw new Error('User not found');

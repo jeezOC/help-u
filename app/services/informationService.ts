@@ -23,7 +23,7 @@ const informationCollection = collection(FIRESTORE, 'information')
 
 const get = async (id: string): Promise<ApiResponse<TInformation>> => {
   try {
-    const informationDoc = await getDoc(doc(informationCollection, id.toString()));
+    const informationDoc = await getDoc(doc(informationCollection, id));
     if (informationDoc.exists()) {
       const information = { id: informationDoc.id, ...informationDoc.data() } as TInformation;
       return {
@@ -69,7 +69,7 @@ const create = async (data: TInformation): Promise<ApiResponse<TInformation>> =>
     await setDoc(newInformationRef, {
       ...data,
     });
-    const information = { id: newInformationRef.id, ...data} as TInformation;
+    const information = { id: newInformationRef.id, ...data } as TInformation;
     return {
       success: true,
       message: 'Information added',
@@ -83,7 +83,7 @@ const create = async (data: TInformation): Promise<ApiResponse<TInformation>> =>
   }
 }
 
-const update = async ( information: TInformation): Promise<ApiResponse<TInformation>> => {
+const update = async (information: TInformation): Promise<ApiResponse<TInformation>> => {
   try {
     const informationRef = await getInformationRef(information.id);
     delete information.id;
@@ -93,7 +93,7 @@ const update = async ( information: TInformation): Promise<ApiResponse<TInformat
     return {
       success: true,
       message: 'Information updated',
-      data: {...information, id: informationRef.id},
+      data: { ...information, id: informationRef.id },
     }
   } catch (error) {
     return {
