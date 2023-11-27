@@ -9,25 +9,25 @@ type TAddProps = NativeStackScreenProps<TAppLayoutProps>;
 
 const Add: React.FC<TAddProps> = ({ navigation }) => {
   return (
-    <View style={styles.container} >
-      <View style={styles.headerContainer}>
-        <View style={styles.titleContainer}>
-          <Image
-            source={require('../../assets/favicon.png')}
-            onError={(e) => console.log(e)}
-            style={styles.image}
-          />
-          <Text style={styles.title} >
-            Creación del evento
-          </Text>
+    <ScrollView>
+      <View style={styles.container} >
+        <View style={styles.headerContainer}>
+          <View style={styles.titleContainer}>
+            <Image
+              source={require('../../assets/favicon.png')}
+              onError={(e) => console.log(e)}
+              style={styles.image}
+            />
+            <Text style={styles.title} >
+              Creación del evento
+            </Text>
+          </View>
         </View>
-      </View>
-      <ScrollView>
         <View style={styles.addContainer}>
           <AddForm navigation={navigation} />
         </View>
-      </ScrollView>
-    </View>
+      </View>
+    </ScrollView>
   );
 };
 
@@ -36,14 +36,11 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
+    paddingTop: 20,
+    paddingBottom: 20,
     backgroundColor: AppColors.background,
   },
   addContainer: {
-    width: '100%',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  imageContainer: {
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',
@@ -68,6 +65,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     justifyContent: 'center',
+    marginBottom: 5,
   }
 });
 
