@@ -14,8 +14,10 @@ import {
   and,
   orderBy,
   deleteDoc,
+  Timestamp,
 } from '@firebase/firestore';
-import { FIRESTORE } from '../../FirebaseConfig';
+import { FIREBASE_STORAGE, FIRESTORE } from '../../FirebaseConfig';
+import storageService from "./storageService";
 
 
 const activityCollection = collection(FIRESTORE, 'activity')
@@ -66,7 +68,9 @@ const getAll = async (): Promise<ApiResponse<TActivity[]>> => {
     const q = query(activityCollection);
     const activityDocs = await getDocs(q);
     const volunteeringActivities = activityDocs.docs.map((activityDoc) => {
-      return { id: activityDoc.id, ...activityDoc.data() } as TActivity;
+      console.log('---- typeof date:', typeof activityDoc.data().date);
+      const date = activityDoc.data().date.toDate();
+      return { id: activityDoc.id, ...activityDoc.data(), date  } as TActivity;
     });
     return {
       success: true,
@@ -83,10 +87,32 @@ const getAll = async (): Promise<ApiResponse<TActivity[]>> => {
 
 const create = async (data: TActivity): Promise<ApiResponse<TActivity>> => {
   try {
-    const newactivityRef = await addDoc(activityCollection, {
+    const response = await fetch(data.bannerImg);
+    const bannerImgBlob = await response.blob();
+    const { data: bannerImg } = await storageService.postFile(`activity/${data.name}/bannerImg`, bannerImgBlob);
+    const images = await Promise.all(data.images.map(async (image, index) => {
+      const response = await fetch(image);
+      const imageBlob = await response.blob();
+      const { data: newImageUrl } = await storageService.postFile(`activity/${data.name}/image-${index}`, imageBlob);
+      return newImageUrl;
+    }));
+    console.log('----------------date',  data.date.toString());
+    const timestamp = typeof data.date.toString() === 'string' ? Timestamp.fromDate(new Date(data.date.toString() )) : data.date;
+    console.log('----------------timestamp', timestamp);
+    const finalData = {
       ...data,
+      bannerImg,
+      images,
+      date: timestamp,
+    }
+
+    console.log('---- finalData', finalData);
+
+    const newactivityRef = await addDoc(activityCollection, {
+      ...finalData,
     });
-    const activity = { id: newactivityRef.id, ...data } as TActivity;
+    const activity = { id: newactivityRef.id, ...finalData } as TActivity;
+    console.log('---- activity', activity);
     return {
       success: true,
       message: 'activity added',

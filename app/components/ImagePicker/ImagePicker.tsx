@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Image, View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { useField } from 'formik';
 import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const PickerImage = () => {
+const PickerImage = ({ name }) => {
   const [image, setImage] = useState(null);
+  const [, meta, helpers] = useField(name);
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -15,9 +17,8 @@ const PickerImage = () => {
       quality: 1,
     });
 
-    console.log(result);
-
     if (!result.canceled) {
+      helpers.setValue(result.assets[0].uri);
       setImage(result.assets[0].uri);
     }
   };
@@ -31,9 +32,10 @@ const PickerImage = () => {
           <Image source={{ uri: image }} style={imagePickerStyles.image} />
         )}
       </TouchableOpacity>
+      {meta.touched && meta.error && <Text style={{ color: 'red' }}>{meta.error}</Text>}
     </View>
   );
-}
+};
 
 const imagePickerStyles = StyleSheet.create({
   container: {
@@ -56,5 +58,4 @@ const imagePickerStyles = StyleSheet.create({
   },
 });
 
-
-export default PickerImage
+export default PickerImage;

@@ -52,67 +52,17 @@ const Home: React.FC<THomeProps> = ({ navigation }) => {
         justifyContent: 'flex-start',
         paddingHorizontal: 20,
       }} >
-  {/*       {activities?.map((activity) => (
+        {activities?.map((activity) => (
           <EventCard
             key={activity.id}
             activityName={activity.name}
-            dateTime={activity.date}
+            dateTime={activity.date.toString()}
             description={activity.description}
-            image={testImage01}
+            image={{ uri: activity.bannerImg }}
             onPress={() => handleOnpress(activity.id)}
           />
         ))
-        } */}
-      <EventCard
-        activityName='Protección de tortugas'
-        dateTime='27/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-        image={testImage01}
-      />
-        <EventCard
-          activityName='Comida a inmigrantes'
-          dateTime='27/11/2023'
-          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-          image={testImage02}
-          onPress={() => toggleModal()}
-        />
-        <EventCard
-          activityName='Cuido de adultos mayores'
-          dateTime='29/11/2023'
-          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-          image={testImage03}
-        />
-        <EventCard
-        activityName='Limpieza de bosques'
-        dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-        image={testImage04}
-      />
-      <EventCard
-        activityName='Protección de tortugas'
-        dateTime='27/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-        image={testImage01}
-      />
-      <EventCard
-        activityName='Comida a inmigrantes'
-        dateTime='27/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-        image={testImage02}
-      />
-        <EventCard
-          activityName='Cuido de adultos mayores'
-          dateTime='29/11/2023'
-          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-          image={testImage03}
-        />
-        <EventCard
-          activityName='Limpieza de bosques'
-          dateTime='29/11/2023'
-          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
-          image={testImage04}
-        />
-
+        }
       </ScrollView>
       <ActivityDetailsModal visible={modalVisible} onClose={toggleModal} />
     </View>

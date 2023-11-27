@@ -11,9 +11,8 @@ import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { AppColors, AppFonts } from '../../styles/AppTheme';
 
-const DateTimePickerModal = ({ visible, onClose }) => {
+const DateTimePickerModal = ({ visible, onClose, setValue, value }) => {
 
-  const [value, setValue] = useState<DateType>(dayjs());
 
   return (
     <Modal
@@ -36,6 +35,7 @@ const DateTimePickerModal = ({ visible, onClose }) => {
                 fontFamily: AppFonts.bold,
                 color: AppColors.white,
               }}
+              
               todayContainerStyle={{
                 borderWidth: 1,
               }}

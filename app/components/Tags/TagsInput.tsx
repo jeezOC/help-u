@@ -50,10 +50,10 @@ const TagsInput = (props:TagsInputProps) => {
   return (
     <View style={{ width: '100%' }}>
       <Text style={tagStyles.tagText}>{label}</Text>
-      <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 1,flexShrink:1 }}>
+      <View style={{ flex:1, flexDirection: 'row', marginBottom: 5, marginTop: 1 }}>
       <View style={{ flexDirection: 'row', flexShrink:1 }}>
         <TextInput
-          style={[tagStyles.input, editIndex !== null ? {width: '60%'} : {width: '70%'}]}
+          style={[tagStyles.input]}
           placeholder="Añade una etiqueta"
           value={text}
           onChangeText={setText}
@@ -119,6 +119,7 @@ const tagStyles = StyleSheet.create({
     fontFamily: AppFonts.bold,
   },
   input: {
+    width: '100%',
     height: 40,
     padding: 10,
     borderWidth: 2,
@@ -130,7 +131,7 @@ const tagStyles = StyleSheet.create({
   },
   addButton: {
     backgroundColor: AppColors.greenSolid,
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 10,
     marginLeft: 5,

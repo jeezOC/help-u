@@ -1,12 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { TActivity } from "../types/Activity";
+import activityService from "../services/activityService";
 
 
 type TActivitiesContext = {
   activities: TActivity[],
   setActivities: React.Dispatch<React.SetStateAction<TActivity[]>>
   selectedActivity: TActivity,
-  updateSelectedActivity: (id:string) => void
+  updateSelectedActivity: (id: string) => void
 }
 
 export const ActivitiesContext = createContext<TActivitiesContext>({} as TActivitiesContext);
@@ -25,6 +26,14 @@ const ActivitiesProvider = ({ children }) => {
     setActivities,
     selectedActivity, updateSelectedActivity
   }
+  const fetchActivities = async () => {
+    const { data } = await activityService.getAll();
+    setActivities(data);
+  }
+
+  useEffect(() => {
+    fetchActivities();
+  }, [])
 
   return (
     <ActivitiesContext.Provider value={values}>

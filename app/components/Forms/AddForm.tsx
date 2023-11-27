@@ -14,44 +14,53 @@ import useToast from '../../hooks/useToast';
 import { useActivities } from '../../hooks/useActivities';
 import PickerImage from '../ImagePicker/ImagePicker';
 import { ScrollView } from 'react-native';
+import { DateType } from 'react-native-ui-datepicker';
+import dayjs from 'dayjs';
 
 const Add = ({ navigation }) => {
-
+  const [date, setDate] = useState<DateType>(dayjs());
+  const [modalVisible, setModalVisible] = useState(false);
   const { user } = useAuth();
   const toast = useToast();
+  const { setActivities } = useActivities()
 
   const handleSubmit = async (values) => {
-    const { setActivities } = useActivities()
-
-    // const newActivity: TActivity = {
-    //   owner: user.id,
-    //   // TODO: COMPLETE THE ACTIVITY TYPE | DANAH
-    //   // name: values.name,
-    //   // description: values.desc,
-    //   // date: values.date,
-    //   // time: values.time,
-    //   // location: values.location,
-    //   // photos: values.photos,
-    //   // organization: values.org,
-    // };
-    // const { success, data, message } = await activityService.create(newActivity as TActivity);
-    // if (success) {
-    //   toast({
-    //     message: 'Actividad creada con éxito',
-    //     type: 'success',
-    //   })
-    //   setActivities((currentActivities) => [data, ...currentActivities])
-    //   navigation.navigate('Home');
-    // } else {
-    //   toast({
-    //     message: 'Error al crear la actividad',
-    //     type: 'error',
-    //   })
-    //   console.log(message);
-    // }
+    
+    const newActivity: Omit<TActivity, 'id'> = {
+      owner: user.id,
+      name: values.name,
+      description: values.desc,
+      date,
+      location: {
+        province: values.location.province,
+        canton: values.location.canton,
+        district: values.location.district,
+        details: values.location.details,
+      },
+      areasOfInterest: values.areasOfInterest,
+      images: values.images,
+      bannerImg: values.bannerImg,
+      registeredVolunteers: [],
+    };
+    console.log(newActivity);
+    const { success, data, message } = await activityService.create(newActivity as TActivity);
+    if (success) {
+      toast({
+        message: 'Actividad creada con éxito',
+        type: 'success',
+      })
+      setActivities((currentActivities) => [data, ...currentActivities])
+      navigation.navigate('Inicio');
+    } else {
+      toast({
+        message: 'Error al crear la actividad',
+        type: 'error',
+      })
+      console.log(message);
+    }
   }
 
-  const [modalVisible, setModalVisible] = useState(false);
+
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
@@ -69,7 +78,8 @@ const Add = ({ navigation }) => {
           province: '',
           district: '',
         },
-        photos: '',
+        bannerImg: '',
+        images: [],
         org: '',
       }}
       onSubmit={values => handleSubmit(values)}
@@ -80,7 +90,7 @@ const Add = ({ navigation }) => {
           <View style={styles.rowContainer}>
             <Text style={[styles.text, { width: '50%' }]}>Selecciona la imagen principal del evento</Text>
             <View style={{ width: '50%', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
-              <PickerImage></PickerImage>
+              <PickerImage name='bannerImg'/>
             </View>
           </View>
 
@@ -96,7 +106,7 @@ const Add = ({ navigation }) => {
               {'Seleccionar fecha y hora'}
             </Text>
           </TouchableOpacity>
-          <DateTimePickerModal visible={modalVisible} onClose={toggleModal} />
+          <DateTimePickerModal visible={modalVisible} onClose={toggleModal} setValue={setDate} value={date} />
 
           <Input name='location.province' label='Provincia' />
           <Input name='location.canton' label='Cantón' />
@@ -108,14 +118,12 @@ const Add = ({ navigation }) => {
           <Text style={[styles.text, { width: '100%' }]}>Selecciona imágenes del evento</Text>
           <View style={styles.rowContainer}>
             <ScrollView horizontal={true} style={{ paddingBottom: 5 }}>
-              <PickerImage></PickerImage>
-              <PickerImage></PickerImage>
-              <PickerImage></PickerImage>
-              <PickerImage></PickerImage>
+              <PickerImage name='images[0]' />
+              <PickerImage name='images[1]' />
+              <PickerImage name='images[2]' />
+              <PickerImage name='images[3]' />
             </ScrollView>
           </View>
-
-          <Input name='org' label='Organización asociada' />
 
           <Button onPress={() => handleSubmit()} label='Crear' size={'lg'}
             style={{

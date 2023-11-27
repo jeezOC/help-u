@@ -3,12 +3,13 @@ import { Modal, View, Text, TouchableOpacity, StyleSheet, ImageBackground, Activ
 import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme';
 import Button from '../Button/Button';
 import { useActivities } from '../../hooks/useActivities';
+import { parseStringToDate } from '../../utils/dateHelpers';
 
 
 const ActivityDetailsModal = ({ visible, onClose }) => {
   const { selectedActivity } = useActivities()
-  // const image = { uri: selectedActivity?.images[0] }
-  const image = require('../../../assets/img01.jpg');
+  const image = { uri: selectedActivity?.bannerImg }
+  
   return (
     <Modal
       animationType="slide"
@@ -19,23 +20,21 @@ const ActivityDetailsModal = ({ visible, onClose }) => {
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           {
-            false
+            !selectedActivity
               ? <ActivityIndicator size="large" color={AppColors.greenSolid} />
               : (<>
-                <Text style={styles.modalTitle}>Detalles de la actividad</Text>
+                <Text style={styles.modalTitle}>{selectedActivity.name}</Text>
+                  <ImageBackground source={image} style={styles.backgroundImage} resizeMode="cover" />
                 <View style={styles.formContainer}>
-                  {/* <Text style={styles.title}>Nombre:</Text>
-                  <Text style={styles.text}>{selectedActivity.name}</Text>
                   <Text style={styles.title}>Descripción:</Text>
                   <Text style={styles.text}>{selectedActivity.description}</Text>
                   <Text style={styles.title}>Fecha:</Text>
-                  <Text style={styles.text}>{selectedActivity.date}</Text>
+                  <Text style={styles.text}>{parseStringToDate(selectedActivity.date)}</Text>
                   <Text style={styles.title}>Ubicación:</Text>
-                  <Text style={styles.text}>{`${selectedActivity.location.province}, ${selectedActivity.location.canton}, ${selectedActivity.location.district}`}</Text>
+                  <Text style={styles.text}>{`${selectedActivity.location?.province}, ${selectedActivity.location?.canton}, ${selectedActivity.location?.district}`}</Text>
                   <Text style={styles.title}>Organización:</Text>
-                  <Text style={styles.text}>{selectedActivity.owner}</Text> */}
+                  <Text style={styles.text}>{selectedActivity.owner}</Text>
                 </View>
-                <ImageBackground source={image} style={styles.backgroundImage} resizeMode="cover" />
                 <Button onPress={onClose}
                   label='Cerrar' size={'sm'}
                   accent="cancel"
@@ -133,6 +132,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   backgroundImage: {
+    minHeight: 100,
+    minWidth: 200,
     justifyContent: 'flex-end',
     borderRadius: 15,
     overflow: 'hidden',
