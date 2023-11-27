@@ -14,11 +14,15 @@ type THomeProps = NativeStackScreenProps<TAppRouts>;
 
 const Home: React.FC<THomeProps> = ({ navigation }) => {
   const { activities } = useActivities();
-  const testImage = require('../../assets/img.jpg');
+  const testImage01 = require('../../assets/img01.jpg');
+  const testImage02 = require('../../assets/img02.jpg');
+  const testImage03 = require('../../assets/img03.jpg');
+  const testImage04 = require('../../assets/img04.jpg');
+
   return (
     <ScrollView contentContainerStyle={{
       justifyContent: 'flex-start',
-      paddingHorizontal: 25,
+      paddingHorizontal: 20,
       paddingTop: 20,
     }} >
       <View style={styles.headerContainer}>
@@ -33,45 +37,63 @@ const Home: React.FC<THomeProps> = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      {activities?.map((activity) => (
+{/*       {activities?.map((activity) => (
         <EventCard
           key={activity.id}
           activityName={activity.name}
           dateTime={activity.date}
           description={activity.description}
-          image={testImage}
+          image={testImage01}
         />
       ))
-      }
+      } */}
       <EventCard
-        activityName='Weler perico'
+        activityName='Protección de tortugas'
         dateTime='27/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage01}
       />
       <EventCard
-        activityName='Tomar waro'
-        dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
-      />
-      {/* <EventCard
-          activityName='Fumar Mariwanas'
-          dateTime='29/11/2023'
-          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-          image={testImage}
-        /> */}
-      <EventCard
-        activityName='Tomar waro'
-        dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
+        activityName='Comida a inmigrantes'
+        dateTime='27/11/2023'
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage02}
       />
       <EventCard
-        activityName='Tomar waro'
+        activityName='Cuido de adultos mayores'
         dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage03}
+      />
+      <EventCard
+        activityName='Limpieza de bosques'
+        dateTime='29/11/2023'
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage04}
+      />
+      <EventCard
+        activityName='Protección de tortugas'
+        dateTime='27/11/2023'
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage01}
+      />
+      <EventCard
+        activityName='Comida a inmigrantes'
+        dateTime='27/11/2023'
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage02}
+      />
+      <EventCard
+        activityName='Cuido de adultos mayores'
+        dateTime='29/11/2023'
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage03}
+      />
+      <EventCard
+        activityName='Limpieza de bosques'
+        dateTime='29/11/2023'
+        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare.'
+        image={testImage04}
       />
     </ScrollView>
   );
@@ -98,7 +120,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     flex: 1,
     justifyContent: 'center',
-    marginBottom: 5,
+    marginBottom: 10,
   }
 });
 
