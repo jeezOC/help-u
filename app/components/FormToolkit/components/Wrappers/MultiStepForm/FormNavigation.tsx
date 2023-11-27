@@ -1,3 +1,4 @@
+import { AppColors } from '../../../../../styles/AppTheme'
 import Button from '../../../../Button/Button'
 import { ActivityIndicator, View } from 'react-native'
 interface IFormNavigation {
@@ -6,6 +7,7 @@ interface IFormNavigation {
   goToNextStep: () => void
   goToPreviousStep: () => void
   isSubmitting?: boolean
+  
 }
 const FormNavigation = ({
   hasPreviousStep,
@@ -26,31 +28,35 @@ const FormNavigation = ({
     >
       {hasPreviousStep && (
         <Button
-          style={{ width: '25%' }}
-          label="Previous"
-          variant="solid"
-          accent="cancel"
+          style={{ width: '45%' }}
+          label="Anterior"
+          variant="outline"
+          size='sm'
+          disabled={isSubmitting}
           onPress={goToPreviousStep}
         />
       )}
-      {isSubmitting ? (
-        <ActivityIndicator size="small" color="#0000ff" />
-      ) : isFinalStep ? (
-        <Button
-          style={{ width: '25%' }}
-          label="Submit"
-          variant="solid"
-          accent="confirm"
-          onPress={goToNextStep}
-        />
-      ) : (
-        <Button
-          style={{ width: '25%' }}
-          label="Next"
-          variant="solid"
-          onPress={goToNextStep}
-        />
-      )}
+      {isFinalStep
+        ? (
+          <Button
+            style={{ width: '45%' }}
+            label="Confirmar"
+            variant="solid"
+            accent="confirm"
+            size='sm'
+            isLoading={isSubmitting}
+            onPress={goToNextStep}
+          />
+        ) : (
+          <Button
+            style={{ width: '45%' }}
+            label="Siguiente"
+            variant="solid"
+            size='sm'
+            isLoading={isSubmitting}
+            onPress={goToNextStep}
+          />
+        )}
     </View>
   )
 }

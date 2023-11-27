@@ -4,16 +4,41 @@ import Input from '../FormToolkit/components/Inputs/Input';
 import { Formik } from 'formik';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import { AppColors, AppFonts } from '../../styles/AppTheme';
+import { useAuth } from '../../hooks/useAuth';
+import useToast from '../../hooks/useToast';
 
 const LoginForm = ({ navigation }) => {
-  const handleSubmit = (values) => {
-    navigation.replace('App');
+
+  const { handleLogin, isLoading } = useAuth();
+const toast = useToast();
+
+  const handleSubmitLogin = async (values) => {
+    const { email, password } = values;
+
+    if (email === ''){
+      toast({
+        type: 'error',
+        message: 'Debes ingresar un email'
+      })
+      return;
+    }
+    if (password === ''){
+      toast({
+        type: 'error',
+        message: 'Debes ingresar una contraseña'
+      })
+      return;
+    }
+    const { success } = await handleLogin(email, password);
+    if (success) {
+      navigation.replace('App');
+    }
   }
 
   return (
     <Formik
       initialValues={{ email: '' }}
-      onSubmit={values => handleSubmit(values)}
+      onSubmit={values => handleSubmitLogin(values)}
     >
       {({ handleSubmit, values }) => (
         <View style={styles.formContainer} >
@@ -27,11 +52,11 @@ const LoginForm = ({ navigation }) => {
             }} />
           <Text style={{ fontFamily: AppFonts.ligth }}>
             ¿No tienes cuenta? &nbsp;
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-            <Text style={{ fontFamily: AppFonts.bold, color: AppColors.greenSolid }}>
-              Registrate
-            </Text>
-          </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+              <Text style={{ fontFamily: AppFonts.bold, color: AppColors.greenSolid }}>
+                Registrate
+              </Text>
+            </TouchableOpacity>
           </Text>
         </View>
       )}

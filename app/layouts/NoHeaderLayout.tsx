@@ -7,11 +7,11 @@ import SignUp from '../screens/SignUp';
 import AppLayout from './AppLayout';
 import { AppColors, AppFonts } from '../styles/AppTheme';
 
-
-type TNoHeaderLayoutProps = {
+export type TNoHeaderLayoutProps = {
   Login: undefined;
   App: undefined;
   SignUp: undefined;
+  Onboarding: undefined;
 };
 
 const Stack = createNativeStackNavigator<TNoHeaderLayoutProps>();

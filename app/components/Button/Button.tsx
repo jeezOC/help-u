@@ -4,10 +4,13 @@ import {
   Text,
   PressableProps,
   StyleProp,
-  ViewStyle
+  ViewStyle,
+  View,
+  ActivityIndicator
 } from 'react-native'
 import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme'
 import Icon, { IIconProps } from '../Icon/Icon'
+import { isLoading } from 'expo-font'
 
 interface IButton extends PressableProps {
   label: string
@@ -17,6 +20,7 @@ interface IButton extends PressableProps {
   position?: 'left' | 'rigth'
   iconProps?: IIconProps
   style?: StyleProp<ViewStyle>
+  isLoading?: boolean
 }
 
 const Button = ({
@@ -27,24 +31,32 @@ const Button = ({
   position = 'left',
   style: extendedStyles,
   iconProps,
+  isLoading,
   ...props
 }: IButton) => {
   const { buttonStyle, textStyle } = buildButtonStyle(accent, variant, size)
   return (
     <Pressable
       {...props}
+      disabled={props.disabled || isLoading}
       style={({ pressed }) => [
         buttonStyle,
         extendedStyles,
-        pressed && { opacity: 0.5 }
+        (pressed || props.disabled ) && { opacity: 0.5 }
       ]}
     >
       {({ pressed }) => (
-        <Text style={[textStyle, pressed && { opacity: 0.5 }]}>
-          {position === 'left' && iconProps && <Icon {...iconProps} />}
-          {label}
-          {position === 'rigth' && iconProps && <Icon {...iconProps} />}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          {isLoading
+            ? <ActivityIndicator size="small" color={AppColors.notBlack} />
+            :
+            <Text style={[textStyle, (pressed || props.disabled) && { opacity: 0.5 }]}>
+              {position === 'left' && iconProps && <Icon {...iconProps} />}
+              {label}
+              {position === 'rigth' && iconProps && <Icon {...iconProps} />}
+            </Text>
+          }
+        </View>
       )}
     </Pressable>
   )
