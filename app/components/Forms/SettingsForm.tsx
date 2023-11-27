@@ -10,7 +10,7 @@ import AccountLinkingModal from '../Modals/AccountLinkingModal';
 import { useAuth } from '../../hooks/useAuth';
 
 const settings = ({ navigation }) => {
-  const {handleLogout} = useAuth();
+  const { handleLogout } = useAuth();
   const handleSubmit = (values) => {
     navigation.replace('settings');
   }
@@ -46,7 +46,7 @@ const settings = ({ navigation }) => {
             </View>
           </View>
           <View style={styles.containerBtn}>
-            <TouchableOpacity style={styles.button} onPress={toggleModal}>
+            <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
                 <Icon iconName='user' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Ajustes de cuenta</Text>
@@ -56,7 +56,7 @@ const settings = ({ navigation }) => {
             <SettingsModal visible={modalVisible} onClose={toggleModal} />
           </View>
           <View style={styles.containerBtn}>
-          <TouchableOpacity style={styles.button} onPress={toggleModal}>
+            <TouchableOpacity style={styles.button} onPress={toggleModal}>
               <View style={styles.leftContent}>
                 <Icon iconName='link' iconSize={'md'} iconColor='gray' />
                 <Text style={styles.text}>Vincular cuentas</Text>
@@ -86,7 +86,7 @@ const settings = ({ navigation }) => {
               <Icon iconName='angle-right' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
           </View>
-          <Button onPress={() =>onLogout()}
+          <Button onPress={() => onLogout()}
             label='Cerrar sesión' size={'md'}
             accent="cancel"
             style={{

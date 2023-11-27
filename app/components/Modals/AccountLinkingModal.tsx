@@ -69,7 +69,6 @@ const AccountLinkingModal: React.FC<AccountLinkingModalProps> = ({ isVisible, on
             accent="cancel"
             style={{
               width: '60%',
-              marginTop: 15,
               alignSelf: 'center',
             }}
           />
@@ -99,6 +98,7 @@ const styles = StyleSheet.create({
     color: AppColors.greenSolid,
   },
   title:{
+    fontFamily: AppFonts.bold,
     fontSize: AppTextSizes.md,
     color: AppColors.greenSolid,
   },
