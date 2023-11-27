@@ -1,8 +1,9 @@
 import React from 'react';
 import Button from '../Button/Button';
 import { Formik } from 'formik';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import Input from '../FormToolkit/components/Inputs/Input';
+import TagsInput from '../Tags/TagsInput';
 
 const Add = ({ navigation }) => {
   const handleSubmit = (values) => {
@@ -26,7 +27,7 @@ const Add = ({ navigation }) => {
         <View style={styles.formContainer} >
           <Input name='name' label='Nombre' />
           <Input name='desc' label='Descripción' />
-          
+          <TagsInput></TagsInput>
           <Input name='org' label='Organización asociada' />
           <Button onPress={() => handleSubmit()} label='Crear' size={'lg'}
             style={{
