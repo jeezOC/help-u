@@ -3,6 +3,7 @@ import { Text, View, Image, StyleSheet } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import SettingsForm from '../components/Forms/SettingsForm';
 import { TAppLayoutProps } from '../layouts/AppLayout';
+import { AppColors, AppTextSizes, AppFonts } from '../styles/AppTheme';
 
 type TSettingsProps = NativeStackScreenProps<TAppLayoutProps>;
 
@@ -15,12 +16,12 @@ const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
           <Image
-            source={require('../../assets/HelpU_Icon.png')}
+            source={require('../../assets/favicon.png')}
             onError={(e) => console.log(e)}
             style={styles.image}
           />
 
-          <Text style={styles.title} >
+          <Text style={{fontSize:AppTextSizes.lg, color:AppColors.greenSolid, fontFamily:AppFonts.bold}} >
             Información de Usuario
           </Text>
         </View>
@@ -47,8 +48,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
   },
   image: {
-    height: 45,
-    width: 40,
+    height: 30,
+    width: 30,
     objectFit: 'contain',
     resizeMode: 'contain',
     marginRight: 15,

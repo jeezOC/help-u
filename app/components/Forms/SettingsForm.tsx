@@ -5,7 +5,8 @@ import { StyleSheet, View, Text, Modal } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import Icon from '../Icon/Icon';
 import { AppFonts } from '../../styles/AppTheme';
-import SettingsModal from './SettingsModal';
+import SettingsModal from '../Modals/SettingsModal';
+import AccountLinkingModal from '../Modals/AccountLinkingModal';
 import { useAuth } from '../../hooks/useAuth';
 
 const settings = ({ navigation }) => {
@@ -17,7 +18,7 @@ const settings = ({ navigation }) => {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
-
+  const { user, updateSession } = useAuth();
   const onLogout = async () => {
     await handleLogout();
     navigation.replace('Login');
@@ -37,8 +38,8 @@ const settings = ({ navigation }) => {
               <View style={styles.leftContent}>
                 <Icon iconName='image' iconSize={'md'} iconColor='grey' />
                 <View>
-                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>Nombre de Prueba</Text>
-                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>Correo de Prueba</Text>
+                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>{user.userName}</Text>
+                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>{user.email}</Text>
                 </View>
               </View>
               <Icon iconName='bell' iconColor='grey' iconSize={'md'} />
@@ -55,13 +56,14 @@ const settings = ({ navigation }) => {
             <SettingsModal visible={modalVisible} onClose={toggleModal} />
           </View>
           <View style={styles.containerBtn}>
-            <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={toggleModal}>
               <View style={styles.leftContent}>
-                <Icon iconName='language' iconSize={'md'} iconColor='gray' />
-                <Text style={styles.text}>Idioma</Text>
+                <Icon iconName='link' iconSize={'md'} iconColor='gray' />
+                <Text style={styles.text}>Vincular cuentas</Text>
               </View>
               <Icon iconName='angle-right' iconSize={'md'} iconColor='gray' />
             </TouchableOpacity>
+            <AccountLinkingModal isVisible={modalVisible} onClose={toggleModal} />
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
                 <Icon iconName='comment' iconSize={'md'} iconColor='gray' />
