@@ -7,7 +7,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type TAuthContext = {
   user: TUser,
-  handleLogin: (email: string, passwd: string) => Promise<{ success: boolean }>,
+  handleLogin: (email: string, passwd: string) => Promise<{ success: boolean, user:TUser | undefined }>,
   handleRegister: (email: string, passwd: string, userName: string) => Promise<{ success: boolean }>,
   handleLogout: () => Promise<{ success: boolean }>
   startUp: () => void
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
     setIsLoading(false);
   }
 
-  const handleLogin = async (email: string, passwd: string): Promise<{ success: boolean }> => {
+  const handleLogin = async (email: string, passwd: string): Promise<{ success: boolean, user:TUser |undefined }> => {
     setIsLoading(true);
     const { success, data: firebaseUser, message } = await authService.login(email, passwd);
     if (success) {
@@ -55,7 +55,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
           message: `Hola ${user.userName}!`
         })
         setIsLoading(false);
-        return { success: true };
+        return { success: true, user };
       } else {
         setUser(null);
         toast({
@@ -63,7 +63,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
           message
         })
         setIsLoading(false);
-        return { success: false };
+        return { success: false, user:undefined };
       }
     } else {
       setUser(null);
@@ -72,7 +72,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
         message
       })
       setIsLoading(false);
-      return { success: false };
+      return { success: false, user:undefined };
     }
   }
 
@@ -85,11 +85,11 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
   const handleRegister = async (email: string, passwd: string, userName: string): Promise<{ success: boolean }> => {
     setIsLoading(true);
-    const { success, data: firebaseUser, message } = await authService.signin(email, passwd);
+    const { success, data: firebaseUser, message } = await authService.signin(email, passwd, userName);
     if (success) {
-      const { success, data: user, message } = await userService.create({ id: firebaseUser.uid, email, userName, onBoardingCompleted: false, onBoardingStep:2 });
+      const { success, data: user, message } = await userService.create({ id: firebaseUser.uid, email, userName, onBoardingCompleted: false, onBoardingStep:1 });
       if (success) {
-        updateSession(user);
+        // updateSession(user);
         toast({
           type: 'success',
           message: `Usuario creado con éxito!`

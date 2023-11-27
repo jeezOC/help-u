@@ -68,9 +68,7 @@ const create = async (data: TInformation): Promise<ApiResponse<TInformation>> =>
     delete data.id;
     await setDoc(newInformationRef, {
       ...data,
-      id: newInformationRef.id,
     });
-
     const information = { id: newInformationRef.id, ...data} as TInformation;
     return {
       success: true,
@@ -91,13 +89,11 @@ const update = async ( information: TInformation): Promise<ApiResponse<TInformat
     delete information.id;
     await setDoc(informationRef, {
       ...information,
-      id: informationRef.id,
-      updatedAt: serverTimestamp(),
     }, { merge: true });
     return {
       success: true,
       message: 'Information updated',
-      data: information,
+      data: {...information, id: informationRef.id},
     }
   } catch (error) {
     return {
@@ -123,7 +119,7 @@ const remove = async (id: string): Promise<ApiResponse<TInformation>> => {
 }
 
 const getInformationRef = async (id: string) => {
-  return doc(informationCollection, id.toString());
+  return doc(informationCollection, id);
 }
 
 const informationService = {

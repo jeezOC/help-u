@@ -40,16 +40,13 @@ const MultiStepForm = <TValues extends {}>({
   const handleSubmit = async (values: Partial<TValues>) => {
     let canContinue = true
     if (currentStep.props.onSubmit) {
-      console.log('onStepSubmit')
       const success = await currentStep.props.onSubmit(values)
       canContinue = success;
-      console.log('onStepSubmit end')
     }
     if (canContinue) {
       if (isFinalStep) {
         onSubmit(values as TValues)
       } else {
-        console.log('nextStep')
         nextStep(values)
       }
     }
@@ -90,6 +87,7 @@ const MultiStepForm = <TValues extends {}>({
         validationSchema={currentStep.props.validationSchema}
         onSubmit={handleSubmit}
         margin={0}
+        
       >
         {(formikProps: FormikProps<Partial<TValues>>) => (
           <View
