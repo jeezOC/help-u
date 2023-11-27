@@ -12,6 +12,8 @@ import { TActivity } from '../../types/Activity';
 import { useAuth } from '../../hooks/useAuth';
 import useToast from '../../hooks/useToast';
 import { useActivities } from '../../hooks/useActivities';
+import PickerImage from '../ImagePicker/ImagePicker';
+import { ScrollView } from 'react-native';
 
 const Add = ({ navigation }) => {
 
@@ -69,6 +71,14 @@ const Add = ({ navigation }) => {
     >
       {({ handleSubmit, values }) => (
         <View style={styles.formContainer} >
+
+          <View style={styles.rowContainer}>
+            <Text style={styles.text}>Selecciona la imagen principal del evento</Text>
+            <View style={{ width: '50%', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
+              <PickerImage></PickerImage>
+            </View>
+          </View>
+
           <Input name='name' label='Nombre' />
 
           <Input name='desc' label='Descripción' multiline />
@@ -86,6 +96,16 @@ const Add = ({ navigation }) => {
           <Input name='location' label='Ubicación' multiline />
 
           <TagsInput></TagsInput>
+
+          <Text style={[styles.text, { width: '100%' }]}>Selecciona imágenes del evento</Text>
+          <View style={styles.rowContainer}>
+            <ScrollView horizontal={true} style={{paddingBottom: 5}}>
+              <PickerImage></PickerImage>
+              <PickerImage></PickerImage>
+              <PickerImage></PickerImage>
+              <PickerImage></PickerImage>
+            </ScrollView>
+          </View>
 
           <Input name='org' label='Organización asociada' />
 
@@ -106,6 +126,17 @@ const styles = StyleSheet.create({
     maxWidth: 300,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  rowContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    color: AppColors.notBlack,
+    fontSize: AppTextSizes.sm,
+    fontFamily: AppFonts.regular,
   },
   button: {
     width: '100%',

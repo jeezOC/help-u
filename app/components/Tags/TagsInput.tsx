@@ -81,13 +81,6 @@ const TagsInput = () => {
 };
 
 const tagStyles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: AppColors.orangeGhost,
-  },
   tagContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
