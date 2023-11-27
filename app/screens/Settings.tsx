@@ -25,7 +25,10 @@ const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <SettingsForm navigation={navigation} />
+      <View style={styles.buttonContainer}>
+        <SettingsForm navigation={navigation} />
+      </View>
+
     </View>
   );
 };
@@ -34,27 +37,35 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start', // Alinear al principio verticalmente
     alignItems: 'center',
+  },
+  buttonContainer: {
+
+    justifyContent: 'center',
+    width: '100%', // Hacer que el contenedor ocupe el 100% del ancho de la pantalla
+    paddingHorizontal: 35,
   },
   image: {
     height: 45,
     width: 40,
+    objectFit: 'contain',
     resizeMode: 'contain',
     marginRight: 15,
   },
   titleContainer: {
     flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 25,
   },
   title: {
     fontSize: 30,
     fontWeight: '500',
   },
   headerContainer: {
+    flex: 1,
     justifyContent: 'center',
-  },
+  }
 });
 
 export default Settings;
