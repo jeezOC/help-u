@@ -24,9 +24,14 @@ const userCollection = collection(FIRESTORE, 'users')
 const get = async (id: string): Promise<ApiResponse<TUser>> => {
   try {
     const userDoc = await getDoc(doc(userCollection, id));
-    const { data: informationDoc } = await informationService.get(userDoc.data().information.id);
     if (userDoc.exists()) {
-      const user = { id: userDoc.id, ...userDoc.data(), information: informationDoc };
+      let user
+      console.log(userDoc.data().information)
+      if (userDoc.data().information !== undefined && userDoc.data().information) {
+        const { data: informationDoc } = await informationService.get(userDoc.data().information.id);
+        user = { id: userDoc.id, ...userDoc.data(), information: informationDoc };
+      }
+      user = { id: userDoc.id, ...userDoc.data(), information: undefined };
       return {
         success: true,
         message: 'User found',

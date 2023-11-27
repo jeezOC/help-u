@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
   const handleLogin = async (email: string, passwd: string): Promise<{ success: boolean, user:TUser |undefined }> => {
     setIsLoading(true);
-    const { success, data: firebaseUser, message } = await authService.login(email, passwd);
+    const { success, data: firebaseUser, message } = await authService.login(email.toLowerCase(), passwd);
     if (success) {
       const { success, data: user, message } = await userService.get(firebaseUser.uid);
       if (success) {
@@ -85,14 +85,13 @@ const AuthProvider = ({ children }: IAuthProvider) => {
 
   const handleRegister = async (email: string, passwd: string, userName: string): Promise<{ success: boolean }> => {
     setIsLoading(true);
-    const { success, data: firebaseUser, message } = await authService.signin(email, passwd, userName);
+    const { success, data: firebaseUser, message } = await authService.signin(email.toLowerCase(), passwd, userName);
     if (success) {
-      const { success, data: user, message } = await userService.create({ id: firebaseUser.uid, email, userName, onBoardingCompleted: false, onBoardingStep:1 });
+      const { success, data: user, message } = await userService.create({ id: firebaseUser.uid, email:email.toLowerCase(), userName, onBoardingCompleted: false, onBoardingStep:1 });
       if (success) {
-        // updateSession(user);
         toast({
           type: 'success',
-          message: `Usuario creado con éxito!`
+          message: `Usuario creado!`
         })
         setIsLoading(false);
         return { success: true };
