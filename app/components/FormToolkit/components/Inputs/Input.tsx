@@ -100,12 +100,12 @@ const inputStyles = StyleSheet.create({
   inputMultiline: {
     width: '100%',
     height: 120,
-    borderRadius: 5,
-    padding: 7,
+    borderRadius: 12,
+    padding: 10,
     fontSize: 16,
-    backgroundColor: AppColors.white,
     borderColor: AppColors.gray,
-    borderWidth: 1.5,
+    borderWidth: 2,
+    backgroundColor: AppColors.white,
     fontFamily: AppFonts.regular,
   },
   inputFocused: {
