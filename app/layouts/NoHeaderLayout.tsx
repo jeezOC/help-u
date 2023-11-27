@@ -6,6 +6,7 @@ import Login from '../screens/Login';
 import SignUp from '../screens/SignUp';
 import AppLayout from './AppLayout';
 import { AppColors, AppFonts } from '../styles/AppTheme';
+import Onboarding from '../screens/Onboarding';
 
 export type TNoHeaderLayoutProps = {
   Login: undefined;
@@ -41,14 +42,13 @@ const NoHeaderLayout = () => {
 
         <Stack.Screen name='SignUp' component={SignUp}
           options={{
-            headerStyle: {
-              backgroundColor: AppColors.orangeSolid,
-            },
-            headerTintColor: AppColors.white,
-            headerTitleStyle: {
-              fontFamily: AppFonts.bold,
-            },
+            headerShown: false,
             title: 'Registrarse',
+          }} />
+          <Stack.Screen name='Onboarding' component={Onboarding}
+          options={{
+            headerShown: false,
+            title: 'Onboarding',
           }} />
 
       </Stack.Navigator>

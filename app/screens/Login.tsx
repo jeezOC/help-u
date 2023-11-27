@@ -9,17 +9,19 @@ import { TNoHeaderLayoutProps } from '../layouts/NoHeaderLayout';
 type TLoginProps = NativeStackScreenProps<TNoHeaderLayoutProps>;
 
 const Login: React.FC<TLoginProps> = ({ navigation }) => {
-  const { replace, navigate } = navigation;
+  const { replace } = navigation;
   const { user , isLoading, handleLogout } = useAuth();
 
   useEffect(() => {
-    if (user) {
-      if (user.onBoardingCompleted) replace('App')
-      else navigate('SignUp')
-      // handleLogout();
+    if (user && !isLoading && user.onBoardingCompleted) {
+      replace('App')
+    }else if (user && !isLoading && !user.onBoardingCompleted) {
+      replace('Onboarding')
     }
-  }, [user, isLoading])
 
+    // handleLogout();
+  }, [user, isLoading])
+  
   return (
     <View style={styles.container} >
       <View style={styles.imageContainer} >

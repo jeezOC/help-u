@@ -19,7 +19,7 @@ const useToast = () => {
   return (config: IToast) => {
     const { message, duration = 3000, hideOnPress = true, type = 'default' } = config;
     return NativeToast.show(message, {
-      duration,
+      duration: NativeToast.durations.LONG,
       position: NativeToast.positions.BOTTOM,
       shadow: false,
       animation: true,

@@ -7,11 +7,46 @@ import TagsInput from '../Tags/TagsInput';
 import Icon from '../Icon/Icon';
 import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme';
 import DateTimePickerModal from '../Modals/DateTimePicker';
+import activityService from '../../services/activityService';
+import { TActivity } from '../../types/Activity';
+import { useAuth } from '../../hooks/useAuth';
+import useToast from '../../hooks/useToast';
+import { useActivities } from '../../hooks/useActivities';
 
 const Add = ({ navigation }) => {
 
-  const handleSubmit = (values) => {
-    navigation.replace('add');
+  const { user } = useAuth();
+  const toast = useToast();
+
+  const handleSubmit = async (values) => {
+    const { setActivities } = useActivities()
+
+    // const newActivity: TActivity = {
+    //   owner: user.id,
+    //   // TODO: COMPLETE THE ACTIVITY TYPE | DANAH
+    //   // name: values.name,
+    //   // description: values.desc,
+    //   // date: values.date,
+    //   // time: values.time,
+    //   // location: values.location,
+    //   // photos: values.photos,
+    //   // organization: values.org,
+    // };
+    // const { success, data, message } = await activityService.create(newActivity as TActivity);
+    // if (success) {
+    //   toast({
+    //     message: 'Actividad creada con éxito',
+    //     type: 'success',
+    //   })
+    //   setActivities((currentActivities) => [data, ...currentActivities])
+    //   navigation.navigate('Home');
+    // } else {
+    //   toast({
+    //     message: 'Error al crear la actividad',
+    //     type: 'error',
+    //   })
+    //   console.log(message);
+    // }
   }
 
   const [modalVisible, setModalVisible] = useState(false);
