@@ -131,7 +131,7 @@ const tagStyles = StyleSheet.create({
     borderColor: AppColors.gray,
     backgroundColor: AppColors.white,
     fontSize: AppTextSizes.sm,
-    fontFamily: AppFonts.regular,
+    fontFamily: AppFonts.ligth,
   },
   addButton: {
     backgroundColor: AppColors.greenSolid,
