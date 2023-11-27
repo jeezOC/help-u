@@ -103,7 +103,7 @@ const Add = ({ navigation }) => {
           <Input name='location.district' label='Distrito' />
           <Input name='location.details' label='Detalles' multiline />
 
-          <TagsInput></TagsInput>
+          <TagsInput name='areasOfInterest' label='Areas de Interés' />
 
           <Text style={[styles.text, { width: '100%' }]}>Selecciona imágenes del evento</Text>
           <View style={styles.rowContainer}>

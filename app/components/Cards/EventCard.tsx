@@ -1,5 +1,5 @@
 // CustomActivityComponent.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
 import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme';
@@ -9,6 +9,7 @@ interface EventProps {
   description: string;
   dateTime: string;
   image?: any;
+  onPress?: () => void;
 }
 
 const EventCard: React.FC<EventProps> = ({
@@ -16,11 +17,14 @@ const EventCard: React.FC<EventProps> = ({
   description,
   dateTime,
   image,
+  onPress,
 }) => {
+ 
+  
  
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={onPress}>
         <ImageBackground source={image} style={styles.backgroundImage} resizeMode="cover">
           <View style={styles.overlay}>
             <View style={styles.headerCard}>

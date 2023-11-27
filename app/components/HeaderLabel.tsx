@@ -4,27 +4,32 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import SettingsForm from '../components/Forms/SettingsForm';
 import { TAppLayoutProps } from '../layouts/AppLayout';
 import { AppColors, AppTextSizes, AppFonts } from '../styles/AppTheme';
-import HeaderLabel from '../components/HeaderLabel';
 
-type TSettingsProps = NativeStackScreenProps<TAppLayoutProps>;
-
-const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
-
+type HeaderLabelProps = {
+  text: string;
+};
+const HeaderLabel = (props: HeaderLabelProps) => {
+  const { text } = props;
   return (
-    <View
-      style={styles.container}
-    >
-      <HeaderLabel text="Información de usuario" />
-      <View style={styles.buttonContainer}>
-        <SettingsForm navigation={navigation} />
+    <View style={styles.headerContainer}>
+      <View style={styles.titleContainer}>
+        <Image
+          source={require('../../assets/favicon.png')}
+          onError={(e) => console.log(e)}
+          style={styles.image}
+        />
+
+        <Text style={{ fontSize: AppTextSizes.lg, color: AppColors.greenSolid, fontFamily: AppFonts.bold }} >
+          {text}
+        </Text>
       </View>
 
     </View>
   );
-};
+}
+
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
     justifyContent: 'flex-start', // Alinear al principio verticalmente
@@ -53,9 +58,11 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   headerContainer: {
-    flex: 1,
+    // flex: 1,
+    paddingVertical: 10,
     justifyContent: 'center',
   }
 });
 
-export default Settings;
+
+export default HeaderLabel;

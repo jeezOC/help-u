@@ -10,20 +10,22 @@ import AccountLinkingModal from '../Modals/AccountLinkingModal';
 import { useAuth } from '../../hooks/useAuth';
 
 const settings = ({ navigation }) => {
-  const { handleLogout } = useAuth();
-  const handleSubmit = (values) => {
-    navigation.replace('settings');
-  }
+  const { handleLogout,  user, updateSession } = useAuth();
+  
   const [modalVisible, setModalVisible] = useState(false);
+  
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
-  const { user, updateSession } = useAuth();
+  
+  const handleSubmit = (values) => {
+    navigation.replace('settings');
+  }
+
   const onLogout = async () => {
     await handleLogout();
     navigation.replace('Login');
   }
-
 
   return (
     <Formik
@@ -38,8 +40,8 @@ const settings = ({ navigation }) => {
               <View style={styles.leftContent}>
                 <Icon iconName='image' iconSize={'md'} iconColor='grey' />
                 <View>
-                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>{user.userName}</Text>
-                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>{user.email}</Text>
+                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>{user?.userName}</Text>
+                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>{user?.email}</Text>
                 </View>
               </View>
               <Icon iconName='bell' iconColor='grey' iconSize={'md'} />
