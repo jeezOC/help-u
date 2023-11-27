@@ -9,6 +9,7 @@ import { useAuth } from '../../hooks/useAuth';
 import useToast from '../../hooks/useToast';
 import informationService from '../../services/informationService';
 import userService from '../../services/userService';
+import TagsInput from '../Tags/TagsInput';
 
 
 const OnboardingForm = ({ navigation }) => {
@@ -205,7 +206,7 @@ const OnboardingForm = ({ navigation }) => {
                   label='Descripción '
                   multiline
                 />
-                <FieldArray
+                {/* <FieldArray
                   name='organizator.focusAreas'>
                   {({ push, remove, form }) => (
                     <>
@@ -233,10 +234,11 @@ const OnboardingForm = ({ navigation }) => {
                       </View>
                     </>
                   )}
-                </FieldArray>
+                </FieldArray> */}
+                <TagsInput name='organizator.focusAreas' label='Áreas de enfoque' />
               </>
               : <>
-                <FieldArray
+                {/* <FieldArray
                   name='volunteer.areasOfInterest'>
                   {({ push, remove, form }) => (
                     <>
@@ -293,7 +295,9 @@ const OnboardingForm = ({ navigation }) => {
                       </View>
                     </>
                   )}
-                </FieldArray>
+                </FieldArray> */}
+                <TagsInput name='volunteer.areasOfInterest' label='Areas de Interés' />
+                <TagsInput name='volunteer.skills' label='Habilidades' />
                 <Input
                   name='volunteer.biography'
                   label='Biografía'

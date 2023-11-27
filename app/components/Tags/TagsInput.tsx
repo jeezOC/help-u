@@ -1,27 +1,36 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { AppColors, AppFonts, AppTextSizes } from '../../styles/AppTheme';
+import { useField } from 'formik';
 
-const TagsInput = () => {
+type TagsInputProps = {
+  name: string;
+  label: string;
+};
+
+const TagsInput = (props:TagsInputProps) => {
+  const { name,label } = props;
+
   const [tags, setTags] = useState([]);
   const [text, setText] = useState('');
   const [editIndex, setEditIndex] = useState(null);
 
+  const [, meta, helpers] = useField(name);
+
   const addTag = () => {
     if (text.trim() !== '') {
       if (editIndex !== null) {
-
-        // If editing an existing tag 
+        // If editing an existing tag
         const newTags = [...tags];
         newTags[editIndex] = text.trim();
         setTags(newTags);
         setEditIndex(null);
       } else {
-
-        // If adding a new tag 
-        setTags([...tags, text.trim()]);
+        // If adding a new tag
+        setTags([text.trim(),...tags]);
       }
       setText('');
+      helpers.setValue(tags); // Update Formik field value
     }
   };
 
@@ -29,6 +38,7 @@ const TagsInput = () => {
     const newTags = [...tags];
     newTags.splice(index, 1);
     setTags(newTags);
+    helpers.setValue(newTags); // Update Formik field value
   };
 
   const editTag = (index) => {
@@ -39,8 +49,9 @@ const TagsInput = () => {
 
   return (
     <View style={{ width: '100%' }}>
-      <Text style={tagStyles.tagText}>Áreas de interés</Text>
-      <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 1 }}>
+      <Text style={tagStyles.tagText}>{label}</Text>
+      <View style={{ flexDirection: 'row', marginBottom: 5, marginTop: 1,flexShrink:1 }}>
+      <View style={{ flexDirection: 'row', flexShrink:1 }}>
         <TextInput
           style={[tagStyles.input, editIndex !== null ? {width: '60%'} : {width: '70%'}]}
           placeholder="Añade una etiqueta"
@@ -48,8 +59,8 @@ const TagsInput = () => {
           onChangeText={setText}
           onSubmitEditing={addTag}
         />
-        <TouchableOpacity onPress={addTag}
-          style={[tagStyles.addButton, editIndex !== null ? {width: '38%'} : {width: '30%'}]}>
+        </View>
+        <TouchableOpacity onPress={addTag} style={tagStyles.addButton}>
           <Text style={tagStyles.buttonText}>
             {editIndex !== null ? 'Actualizar' : 'Añadir'}
           </Text>
@@ -57,25 +68,17 @@ const TagsInput = () => {
       </View>
       <View style={tagStyles.tagContainer}>
         {tags.map((tag, index) => (
-          <View key={index}
-            style={tagStyles.tagWrapper}>
-            <TouchableOpacity
-              onPress={() => editTag(index)}
-              style={tagStyles.tag}>
-              <Text style={tagStyles.tagText}>
-                {tag}
-              </Text>
-              <TouchableOpacity
-                onPress={() => removeTag(index)}
-                style={tagStyles.removeButton}>
-                <Text style={tagStyles.removeButtonText}>
-                  x
-                </Text>
+          <View key={index} style={tagStyles.tagWrapper}>
+            <TouchableOpacity onPress={() => editTag(index)} style={tagStyles.tag}>
+              <Text style={tagStyles.tagText}>{tag}</Text>
+              <TouchableOpacity onPress={() => removeTag(index)} style={tagStyles.removeButton}>
+                <Text style={tagStyles.removeButtonText}>x</Text>
               </TouchableOpacity>
             </TouchableOpacity>
           </View>
         ))}
       </View>
+      {meta.touched && meta.error && <Text style={{ color: 'red' }}>{meta.error}</Text>}
     </View>
   );
 };

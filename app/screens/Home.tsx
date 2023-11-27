@@ -1,79 +1,100 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { ScrollView, } from 'react-native';
+import { ScrollView, StyleSheet, } from 'react-native';
 import EventCard from '../components/Cards/EventCard';
-import React, { useEffect } from 'react';
-import { Text, View, Image, StyleSheet } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import { TAppLayoutProps } from '../layouts/AppLayout';
 import { TNoHeaderLayoutProps } from '../layouts/NoHeaderLayout'
 import { useActivities } from '../hooks/useActivities';
 import { AppColors, AppFonts, AppTextSizes } from '../styles/AppTheme';
+import HeaderLabel from '../components/HeaderLabel';
+import ActivityDetailsModal from '../components/Modals/ActivityDetailsModal';
+
 
 type TAppRouts = TAppLayoutProps & TNoHeaderLayoutProps;
 
 type THomeProps = NativeStackScreenProps<TAppRouts>;
 
 const Home: React.FC<THomeProps> = ({ navigation }) => {
-  const { activities } = useActivities();
+  const { activities, updateSelectedActivity } = useActivities();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!modalVisible);
+  };
+
+  const handleOnpress = (activityId: string) => {
+    updateSelectedActivity(activityId)
+    toggleModal();
+  }
+
   const testImage = require('../../assets/img.jpg');
   return (
-    <ScrollView contentContainerStyle={{
-      justifyContent: 'flex-start',
-      paddingHorizontal: 25,
-      paddingTop: 20,
-    }} >
-      <View style={styles.headerContainer}>
-        <View style={styles.titleContainer}>
-          <Image
-            source={require('../../assets/favicon.png')}
-            onError={(e) => console.log(e)}
-            style={styles.image}
-          />
-          <Text style={styles.title} >
-            Eventos
-          </Text>
-        </View>
+    <View
+      style={{
+        flex: 1,
+
+      }}
+    >
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingHorizontal: 25,
+        }}
+      >
+        <HeaderLabel text="Actividades" />
       </View>
-      {activities?.map((activity) => (
+      <ScrollView contentContainerStyle={{
+        justifyContent: 'flex-start',
+        paddingHorizontal: 25,
+      }} >
+        {activities?.map((activity) => (
+          <EventCard
+            key={activity.id}
+            activityName={activity.name}
+            dateTime={activity.date}
+            description={activity.description}
+            image={testImage}
+            onPress={() => handleOnpress(activity.id)}
+          />
+        ))
+        }
         <EventCard
-          key={activity.id}
-          activityName={activity.name}
-          dateTime={activity.date}
-          description={activity.description}
+          activityName='Weler perico'
+          dateTime='27/11/2023'
+          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
+          image={testImage}
+          onPress={() => toggleModal()}
+        />
+        <EventCard
+          activityName='Tomar waro'
+          dateTime='29/11/2023'
+          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
           image={testImage}
         />
-      ))
-      }
-      <EventCard
-        activityName='Weler perico'
-        dateTime='27/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
-      />
-      <EventCard
-        activityName='Tomar waro'
-        dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
-      />
-      {/* <EventCard
+        {/* <EventCard
           activityName='Fumar Mariwanas'
           dateTime='29/11/2023'
           description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
           image={testImage}
         /> */}
-      <EventCard
-        activityName='Tomar waro'
-        dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
-      />
-      <EventCard
-        activityName='Tomar waro'
-        dateTime='29/11/2023'
-        description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
-        image={testImage}
-      />
-    </ScrollView>
+        <EventCard
+          activityName='Tomar waro'
+          dateTime='29/11/2023'
+          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
+          image={testImage}
+        />
+        <EventCard
+          activityName='Tomar waro'
+          dateTime='29/11/2023'
+          description='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut accumsan eros nec arcu congue, vel suscipit nulla ornare. Proin varius sapien ac leo viverra, in fringilla urna eleifend. Suspendisse non mi non quam eleifend vestibulum vitae ac ipsum.'
+          image={testImage}
+        />
+
+      </ScrollView>
+      <ActivityDetailsModal visible={modalVisible} onClose={toggleModal} />
+    </View>
   );
 };
 
