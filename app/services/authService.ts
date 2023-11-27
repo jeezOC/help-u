@@ -1,11 +1,11 @@
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "@firebase/auth";
 import { FIREBASE_AUTH } from "../../FirebaseConfig";
+import userService from "./userService";
 
 const login = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(FIREBASE_AUTH, email, password);
     const user = userCredential.user;
-    console.log(user);  
     return {
       success: true,
       message: 'User logged in',
@@ -19,11 +19,19 @@ const login = async (email: string, password: string) => {
   }
 }
 
-const signin = async (email: string, password: string) => {
+const signin = async (email: string, password: string, userName:string) => {
   try {
+    const userEmailExists = await userService.getWhere('email', '==', email);
+    if (userEmailExists.data.length > 0) {
+      throw new Error('User email already exists');
+    }
+    const userNameExists = await userService.getWhere('userName', '==', userName);
+    if (userNameExists.data.length > 0) {
+      throw new Error('User name already exists');
+    }
+
     const userCredential = await createUserWithEmailAndPassword(FIREBASE_AUTH, email, password);
     const user = userCredential.user;
-    console.log(user);
     return {
       success: true,
       message: 'User signed in',

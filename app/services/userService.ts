@@ -16,18 +16,21 @@ import {
   deleteDoc,
 } from '@firebase/firestore';
 import { FIRESTORE } from '../../FirebaseConfig';
+import informationService from "./informationService";
+import { getIn } from "formik";
 
 const userCollection = collection(FIRESTORE, 'users')
 
 const get = async (id: string): Promise<ApiResponse<TUser>> => {
   try {
-    const userDoc = await getDoc(doc(userCollection, id.toString()));
+    const userDoc = await getDoc(doc(userCollection, id));
+    const { data: informationDoc } = await informationService.get(userDoc.data().information.id);
     if (userDoc.exists()) {
-      const user = { id: userDoc.id, ...userDoc.data() } as TUser;
+      const user = { id: userDoc.id, ...userDoc.data(), information: informationDoc };
       return {
         success: true,
         message: 'User found',
-        data: user,
+        data: user as TUser,
       }
     } else {
       throw new Error('User not found');
@@ -81,16 +84,6 @@ const getAll = async (): Promise<ApiResponse<TUser[]>> => {
 
 const create = async (data: TUser): Promise<ApiResponse<TUser>> => {
   try {
-    // valitade if user exists
-    const userEmailExists = await getWhere('email', '==', data.email);
-    if (userEmailExists.data.length > 0) {
-      throw new Error('User email already exists');
-    }
-    const userNameExists = await getWhere('userName', '==', data.userName);
-    if (userNameExists.data.length > 0) {
-      throw new Error('User name already exists');
-    }
-
     const newUserRef = await getUserRef(data.id);
     delete data.id
     await setDoc(newUserRef, data);
@@ -109,14 +102,16 @@ const create = async (data: TUser): Promise<ApiResponse<TUser>> => {
   }
 }
 
-const update = async ( data: any): Promise<ApiResponse<TUser>> => {
+const update = async (data: any): Promise<ApiResponse<TUser>> => {
   try {
-    const userDoc = await getDoc(doc(userCollection, data.id.toString()));
+    const userRef = await getUserRef(data.id);
+    const informationRef = await informationService.getInformationRef(data.information.id);
+    const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       delete data.id;
-      await setDoc(doc(userCollection, data.id.toString()), {
+      await setDoc(userRef, {
         ...data,
-        updatedAt: serverTimestamp(),
+        information: informationRef,
       }, { merge: true });
       const user = { id: userDoc.id, ...data } as TUser;
       return {
@@ -136,7 +131,7 @@ const update = async ( data: any): Promise<ApiResponse<TUser>> => {
 }
 
 const getUserRef = async (id: string) => {
-  return doc(userCollection, id.toString());
+  return doc(userCollection, id);
 }
 
 const remove = async (id: number) => {
@@ -146,6 +141,7 @@ const remove = async (id: number) => {
 const userService = {
   get,
   getAll,
+  getWhere,
   create,
   update,
   remove,

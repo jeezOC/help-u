@@ -3,11 +3,20 @@ import React from 'react';
 import { Text, View, ScrollView,} from 'react-native';
 import { TAppLayoutProps } from '../layouts/AppLayout';
 import EventCard from '../components/Cards/EventCard';
+import React, { useEffect } from 'react';
+import { Text, View } from 'react-native';
+import { TAppLayoutProps } from '../layouts/AppLayout';
+import { useAuth } from '../hooks/useAuth';
+import { TNoHeaderLayoutProps } from '../layouts/NoHeaderLayout'
 
-type THomeProps = NativeStackScreenProps<TAppLayoutProps>;
+type TAppRouts = TAppLayoutProps & TNoHeaderLayoutProps;
+
+type THomeProps = NativeStackScreenProps<TAppRouts>;
 
 const Home: React.FC<THomeProps> = ({ navigation }) => {
+
   return (
+
     <View 
     style={{
       flex: 1,
@@ -50,6 +59,19 @@ const Home: React.FC<THomeProps> = ({ navigation }) => {
       </ScrollView>
       
 
+    <View
+      style={{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <Text
+        style={{
+          fontSize: 30,
+          fontWeight: 'bold',
+        }}
+      >Home</Text>
     </View>
   );
 };

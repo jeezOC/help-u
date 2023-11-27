@@ -23,7 +23,7 @@ const informationCollection = collection(FIRESTORE, 'information')
 
 const get = async (id: string): Promise<ApiResponse<TInformation>> => {
   try {
-    const informationDoc = await getDoc(doc(informationCollection, id.toString()));
+    const informationDoc = await getDoc(doc(informationCollection, id));
     if (informationDoc.exists()) {
       const information = { id: informationDoc.id, ...informationDoc.data() } as TInformation;
       return {
@@ -68,10 +68,8 @@ const create = async (data: TInformation): Promise<ApiResponse<TInformation>> =>
     delete data.id;
     await setDoc(newInformationRef, {
       ...data,
-      id: newInformationRef.id,
     });
-
-    const information = { id: newInformationRef.id, ...data} as TInformation;
+    const information = { id: newInformationRef.id, ...data } as TInformation;
     return {
       success: true,
       message: 'Information added',
@@ -85,19 +83,17 @@ const create = async (data: TInformation): Promise<ApiResponse<TInformation>> =>
   }
 }
 
-const update = async ( information: TInformation): Promise<ApiResponse<TInformation>> => {
+const update = async (information: TInformation): Promise<ApiResponse<TInformation>> => {
   try {
     const informationRef = await getInformationRef(information.id);
     delete information.id;
     await setDoc(informationRef, {
       ...information,
-      id: informationRef.id,
-      updatedAt: serverTimestamp(),
     }, { merge: true });
     return {
       success: true,
       message: 'Information updated',
-      data: information,
+      data: { ...information, id: informationRef.id },
     }
   } catch (error) {
     return {
@@ -123,7 +119,7 @@ const remove = async (id: string): Promise<ApiResponse<TInformation>> => {
 }
 
 const getInformationRef = async (id: string) => {
-  return doc(informationCollection, id.toString());
+  return doc(informationCollection, id);
 }
 
 const informationService = {
