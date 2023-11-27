@@ -63,7 +63,12 @@ const Add = ({ navigation }) => {
         desc: '',
         date: '',
         time: '',
-        location: '',
+        location: {
+          details: '',
+          canton: '',
+          province: '',
+          district: '',
+        },
         photos: '',
         org: '',
       }}
@@ -73,7 +78,7 @@ const Add = ({ navigation }) => {
         <View style={styles.formContainer} >
 
           <View style={styles.rowContainer}>
-            <Text style={[styles.text, {width: '50%'}]}>Selecciona la imagen principal del evento</Text>
+            <Text style={[styles.text, { width: '50%' }]}>Selecciona la imagen principal del evento</Text>
             <View style={{ width: '50%', justifyContent: 'flex-end', alignItems: 'flex-end' }}>
               <PickerImage></PickerImage>
             </View>
@@ -93,13 +98,16 @@ const Add = ({ navigation }) => {
           </TouchableOpacity>
           <DateTimePickerModal visible={modalVisible} onClose={toggleModal} />
 
-          <Input name='location' label='Ubicación' multiline />
+          <Input name='location.province' label='Provincia' />
+          <Input name='location.canton' label='Cantón' />
+          <Input name='location.district' label='Distrito' />
+          <Input name='location.details' label='Detalles' multiline />
 
           <TagsInput></TagsInput>
 
           <Text style={[styles.text, { width: '100%' }]}>Selecciona imágenes del evento</Text>
           <View style={styles.rowContainer}>
-            <ScrollView horizontal={true} style={{paddingBottom: 5}}>
+            <ScrollView horizontal={true} style={{ paddingBottom: 5 }}>
               <PickerImage></PickerImage>
               <PickerImage></PickerImage>
               <PickerImage></PickerImage>

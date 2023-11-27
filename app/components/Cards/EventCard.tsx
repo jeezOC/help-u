@@ -2,6 +2,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { View, Text, StyleSheet, ImageBackground } from 'react-native';
+import { AppTextSizes } from '../../styles/AppTheme';
 
 interface EventProps {
   activityName: string;
@@ -54,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   activityName: {
-    AppTextSizes: 16,
+    fontSize: AppTextSizes.sm,
     fontWeight: 'bold',
     color: 'white',
     paddingTop: 10,
