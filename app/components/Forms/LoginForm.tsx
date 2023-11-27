@@ -10,28 +10,32 @@ import useToast from '../../hooks/useToast';
 const LoginForm = ({ navigation }) => {
 
   const { handleLogin, isLoading } = useAuth();
-const toast = useToast();
+  const toast = useToast();
 
   const handleSubmitLogin = async (values) => {
     const { email, password } = values;
 
-    if (email === ''){
+    if (email === '') {
       toast({
         type: 'error',
         message: 'Debes ingresar un email'
       })
       return;
     }
-    if (password === ''){
+    if (password === '') {
       toast({
         type: 'error',
         message: 'Debes ingresar una contraseña'
       })
       return;
     }
-    const { success } = await handleLogin(email, password);
+    const { success, user } = await handleLogin(email, password);
     if (success) {
-      navigation.replace('App');
+      if (user.onBoardingCompleted) {
+        navigation.replace('App');
+      }else{
+        navigation.replace('Onboarding');
+      }
     }
   }
 
@@ -50,14 +54,17 @@ const toast = useToast();
               marginTop: 20,
               marginBottom: 10,
             }} />
-          <Text style={{ fontFamily: AppFonts.ligth }}>
-            ¿No tienes cuenta? &nbsp;
+          <View style={{ flexDirection:'row', gap:5,alignItems: 'center', alignContent: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontFamily: AppFonts.ligth, }}>
+              ¿No tienes cuenta?
+            </Text>
             <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
-              <Text style={{ fontFamily: AppFonts.bold, color: AppColors.greenSolid }}>
+              <Text style={{ fontFamily: AppFonts.bold, color: AppColors.greenSolid, padding:5 }}>
                 Registrate
               </Text>
             </TouchableOpacity>
-          </Text>
+          </View>
+
         </View>
       )}
     </Formik>

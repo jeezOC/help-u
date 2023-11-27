@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { StatusBar } from 'react-native';
 import Home from '../screens/Home';
 import Search from '../screens/Search';
@@ -16,6 +16,7 @@ export type TAppLayoutProps = {
   Perfil: undefined;
 };
 const Tab = createBottomTabNavigator<TAppLayoutProps>();
+
 const AppLayout = () => {
 
   return (
@@ -25,7 +26,6 @@ const AppLayout = () => {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
             let iconName;
-            console.log(size)
             if (route.name === 'Inicio') {
               iconName = focused ? 'home' : 'home';
             } else if (route.name === 'Buscar') {
@@ -58,7 +58,7 @@ const AppLayout = () => {
         sceneContainerStyle={{
           backgroundColor: 'white',
         }}
-        initialRouteName='Inicio'
+        initialRouteName={'Inicio'}
       >
         {appTabs.map((tab) => {
           return (

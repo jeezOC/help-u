@@ -5,21 +5,22 @@ import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { TAppLayoutProps } from '../layouts/AppLayout';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import OnboardingForm from '../components/Forms/OnboardingForm';
+import Constants from 'expo-constants';
 
+type TOnboardings = NativeStackScreenProps<TAppLayoutProps>;
 
-type TSignUpProps = NativeStackScreenProps<TAppLayoutProps>;
-
-const SignUp: React.FC<TSignUpProps> = ({ navigation }) => {
+const Onboarding: React.FC<TOnboardings> = ({ navigation }) => {
   return (
-    <KeyboardAwareScrollView style={styles.scrollContainer}
-      contentContainerStyle={styles.content}
-      keyboardShouldPersistTaps="handled"
-      enableOnAndroid={true}
-      enableAutomaticScroll={true}
-      showsVerticalScrollIndicator={true}
-      extraScrollHeight={-1000}
-    >
-      <View style={styles.container} >
+    <View style={styles.container} >
+      <KeyboardAwareScrollView style={styles.scrollContainer}
+        contentContainerStyle={styles.content}
+        keyboardShouldPersistTaps="handled"
+        enableOnAndroid={true}
+        enableAutomaticScroll={true}
+        showsVerticalScrollIndicator={true}
+        extraScrollHeight={-1000}
+      >
         <View style={styles.imageContainer} >
           <Image
             source={require('../../assets/HelpU_VerticalLogo.png')}
@@ -28,34 +29,39 @@ const SignUp: React.FC<TSignUpProps> = ({ navigation }) => {
           />
         </View>
         <View style={styles.signUpContainer}>
-          <SignUpForm navigation={navigation} />
+          <OnboardingForm navigation={navigation} />
         </View>
-      </View>
-    </KeyboardAwareScrollView>
+      </KeyboardAwareScrollView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container:{
+    flex: 1,
+    width: '100%',
+    // alignItems: 'center',
+    // justifyContent: 'space-evenly',
+    paddingTop: Constants.statusBarHeight ,
+    backgroundColor: AppColors.background,
+  },
   scrollContainer: {
     flex: 1,
     width: '100%',
   },
   content: {
+    paddingVertical: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    flexGrow: 1,
-    backgroundColor: AppColors.background,
-  },
-  container: {
-    flex: 1,
     width: '100%',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    paddingHorizontal: 10,
+    flexGrow: 1,
     backgroundColor: AppColors.background,
   },
   signUpContainer: {
     width: '100%',
+    flex: 1,
+    flexGrow: 1,
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -65,11 +71,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    height: 250,
-    width: 200,
+    height: 115,
+    width: 65,
     objectFit: 'contain',
     resizeMode: 'contain',
   },
 });
 
-export default SignUp;
+export default Onboarding;

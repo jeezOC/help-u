@@ -16,6 +16,7 @@ import {
   deleteDoc,
 } from '@firebase/firestore';
 import { FIRESTORE } from '../../FirebaseConfig';
+import informationService from "./informationService";
 
 const userCollection = collection(FIRESTORE, 'users')
 
@@ -81,16 +82,6 @@ const getAll = async (): Promise<ApiResponse<TUser[]>> => {
 
 const create = async (data: TUser): Promise<ApiResponse<TUser>> => {
   try {
-    // valitade if user exists
-    const userEmailExists = await getWhere('email', '==', data.email);
-    if (userEmailExists.data.length > 0) {
-      throw new Error('User email already exists');
-    }
-    const userNameExists = await getWhere('userName', '==', data.userName);
-    if (userNameExists.data.length > 0) {
-      throw new Error('User name already exists');
-    }
-
     const newUserRef = await getUserRef(data.id);
     delete data.id
     await setDoc(newUserRef, data);
@@ -109,14 +100,16 @@ const create = async (data: TUser): Promise<ApiResponse<TUser>> => {
   }
 }
 
-const update = async ( data: any): Promise<ApiResponse<TUser>> => {
+const update = async (data: any): Promise<ApiResponse<TUser>> => {
   try {
-    const userDoc = await getDoc(doc(userCollection, data.id.toString()));
+    const userRef = await getUserRef(data.id);
+    const informationRef = await informationService.getInformationRef(data.information.id);
+    const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
       delete data.id;
-      await setDoc(doc(userCollection, data.id.toString()), {
+      await setDoc(userRef, {
         ...data,
-        updatedAt: serverTimestamp(),
+        information: informationRef,
       }, { merge: true });
       const user = { id: userDoc.id, ...data } as TUser;
       return {
@@ -136,7 +129,7 @@ const update = async ( data: any): Promise<ApiResponse<TUser>> => {
 }
 
 const getUserRef = async (id: string) => {
-  return doc(userCollection, id.toString());
+  return doc(userCollection, id);
 }
 
 const remove = async (id: number) => {
@@ -146,6 +139,7 @@ const remove = async (id: number) => {
 const userService = {
   get,
   getAll,
+  getWhere,
   create,
   update,
   remove,
