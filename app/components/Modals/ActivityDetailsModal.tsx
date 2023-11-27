@@ -8,7 +8,7 @@ import { useActivities } from '../../hooks/useActivities';
 const ActivityDetailsModal = ({ visible, onClose }) => {
   const { selectedActivity } = useActivities()
   // const image = { uri: selectedActivity?.images[0] }
-  const image = require('../../../assets/img.jpg');
+  const image = require('../../../assets/img01.jpg');
   return (
     <Modal
       animationType="slide"

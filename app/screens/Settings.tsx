@@ -14,7 +14,7 @@ const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
     <View
       style={styles.container}
     >
-      <HeaderLabel text="Información de Usuario" />
+      <HeaderLabel text="Información de usuario" />
       <View style={styles.buttonContainer}>
         <SettingsForm navigation={navigation} />
       </View>
