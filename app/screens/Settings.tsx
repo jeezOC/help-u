@@ -10,12 +10,7 @@ const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
 
   return (
     <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-
-      }}
+      style={styles.container}
     >
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
@@ -30,21 +25,26 @@ const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <SettingsForm navigation={navigation} />
-      {/* <View style={styles.buttonContainer}>
-        <Button label='Desconectarse' size='lg'></Button>
-      </View> */}
+      <View style={styles.buttonContainer}>
+        <SettingsForm navigation={navigation} />
+      </View>
+
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+
+  container: {
     flex: 1,
-    justifyContent: 'flex-end',
-    marginBottom: 36,
-    width: '100%',
+    justifyContent: 'flex-start', // Alinear al principio verticalmente
     alignItems: 'center',
+  },
+  buttonContainer: {
+
+    justifyContent: 'center',
+    width: '100%', // Hacer que el contenedor ocupe el 100% del ancho de la pantalla
+    paddingHorizontal: 35,
   },
   image: {
     height: 45,
@@ -57,7 +57,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 10,
   },
   title: {
     fontSize: 30,
@@ -65,7 +64,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   }
 });
 
