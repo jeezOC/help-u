@@ -17,7 +17,7 @@ const settings = ({ navigation }) => {
   const toggleModal = () => {
     setModalVisible(!modalVisible);
   };
-
+  const { user, updateSession } = useAuth();
   const onLogout = async () => {
     await handleLogout();
     navigation.replace('Login');
@@ -37,8 +37,8 @@ const settings = ({ navigation }) => {
               <View style={styles.leftContent}>
                 <Icon iconName='image' iconSize={'md'} iconColor='grey' />
                 <View>
-                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>Nombre de Prueba</Text>
-                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>Correo de Prueba</Text>
+                  <Text style={{ fontFamily: AppFonts.bold, color: 'black', marginLeft: 20 }}>{user.userName}</Text>
+                  <Text style={{ fontFamily: AppFonts.regular, color: 'grey', marginLeft: 20 }}>{user.email}</Text>
                 </View>
               </View>
               <Icon iconName='bell' iconColor='grey' iconSize={'md'} />
