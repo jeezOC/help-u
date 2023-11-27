@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '../Button/Button';
 import { Formik } from 'formik';
-import { StyleSheet, View, Text, Image} from 'react-native';
-import { white } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import { StyleSheet, View, Text, Modal} from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import Icon from '../Icon/Icon';
 import { AppFonts } from '../../styles/AppTheme';
+import SettingsModal from './SettingsModal';
 
 const settings = ({ navigation }) => {
   const handleSubmit = (values) => {
     navigation.replace('settings');
   }
+const [modalVisible, setModalVisible] = useState(false);
+const toggleModal = () => {
+    setModalVisible(!modalVisible);
+};
 
   return (
     <Formik
@@ -32,17 +36,16 @@ const settings = ({ navigation }) => {
               <Icon iconName='bell' iconColor='grey' iconSize={'md'} />
             </View>
           </View>
-
           <View style={styles.containerBtn}>
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={toggleModal}>
               <View style={styles.leftContent}>
                 <Icon iconName='user' iconSize={'md'} iconColor='gray'/>
                 <Text style={styles.text}>Ajustes de cuenta</Text>
               </View>
               <Icon iconName='edit' iconSize={'md'} iconColor='gray'/>
             </TouchableOpacity>
+            <SettingsModal visible={modalVisible} onClose={toggleModal} />
           </View>
-
           <View style={styles.containerBtn}>
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
@@ -51,7 +54,6 @@ const settings = ({ navigation }) => {
               </View>
               <Icon iconName='angle-right' iconSize={'md'} iconColor='gray'/>
             </TouchableOpacity>
-
             <TouchableOpacity style={styles.button}>
               <View style={styles.leftContent}>
                 <Icon iconName='comment' iconSize={'md'} iconColor='gray'/>
@@ -86,8 +88,6 @@ const settings = ({ navigation }) => {
         </View>
       )}
     </Formik>
-
-
   );
 };
 
