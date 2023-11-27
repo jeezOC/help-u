@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { StyleSheet, View, Text, Modal } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import Icon from '../Icon/Icon';
-import { AppFonts } from '../../styles/AppTheme';
+import { AppFonts, AppTextSizes } from '../../styles/AppTheme';
 import SettingsModal from '../Modals/SettingsModal';
 import AccountLinkingModal from '../Modals/AccountLinkingModal';
 import { useAuth } from '../../hooks/useAuth';
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontFamily: AppFonts.regular,
+    fontSize: AppTextSizes.sm,
     paddingHorizontal: 10,
     color: 'gray',
   },

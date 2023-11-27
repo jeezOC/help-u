@@ -22,7 +22,7 @@ const Settings: React.FC<TSettingsProps> = ({ navigation }) => {
           />
 
           <Text style={{fontSize:AppTextSizes.lg, color:AppColors.greenSolid, fontFamily:AppFonts.bold}} >
-            Información de Usuario
+            Información de usuario
           </Text>
         </View>
       </View>
